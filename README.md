@@ -1,17 +1,17 @@
 <p align="center">
   <span>
     <img src="https://assets.vercel.com/image/upload/v1588805858/repositories/vercel/logo.png" height="96">
-    <h3 align="center">Next.js <b>Typesafe</b> FastAPI Starter</h3>
+    <h3 align="center">Next.js Typesafe FastAPI Starter</h3>
   </span>
 </p>
 
-<p align="center">Simple Next.js boilerplate that uses <a href="https://fastapi.tiangolo.com/lo/">FastAPI</a> as the API backend.</p>
+<p align="center">Simple <b>Typesafe</b> Next.js boilerplate that uses <a href="https://fastapi.tiangolo.com/lo/">FastAPI</a> as the API backend.</p>
 
 <br/>
 
 ## Introduction
 
-This is a hybrid Next.js + Python app that uses Next.js as the frontend and FastAPI as the API backend. One great use case of this is to write Next.js apps that use Python AI libraries on the backend. Furthermore, this automatically generates an OpenAPI schema achieve typesafety between API and frontend.
+This is a hybrid Next.js + Python app that uses Next.js as the frontend and FastAPI as the API backend. One great use case of this is to write Next.js apps that use Python AI libraries on the backend. Furthermore, this automatically generates an OpenAPI schema to share types between API and frontend.
 
 ## How It Works
 
