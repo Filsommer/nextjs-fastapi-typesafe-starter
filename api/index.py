@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import json
 from anyio.streams.file import FileWriteStream
 from prisma import Prisma
-from prisma.models import Items
+from prisma.models import Items, ItemsCreator
 import os 
 
 print("INITTING PRISMA")
@@ -37,25 +37,26 @@ app.add_middleware(
 class ResponseMessage(BaseModel):
     message: str
 
-@app.on_event("startup")
-async def startup():
-    await prisma.connect()
-    print("STARTUP FASTAPI")
-    # write openapi objects to file on startup
-    async with await FileWriteStream.from_path("./openapi.json") as stream:
-        jsonData = jsonable_encoder(app.openapi())
-        for path_data in jsonData["paths"].values():
-            for operation in path_data.values():
-                operation_id = operation["operationId"]
-                new_operation_id = operation_id.split("-")[1]
-                operation["operationId"] = new_operation_id
-        await stream.send(json.dumps(jsonData).encode("utf-8"))
+# @app.on_event("startup")
+# async def startup():
+#     await prisma.connect()
+#     print("STARTUP FASTAPI")
+#     # write openapi objects to file on startup
+#     async with await FileWriteStream.from_path("./openapi.json") as stream:
+#         jsonData = jsonable_encoder(app.openapi())
+#         for path_data in jsonData["paths"].values():
+#             for operation in path_data.values():
+#                 operation_id = operation["operationId"]
+#                 new_operation_id = operation_id.split("-")[1]
+#                 operation["operationId"] = new_operation_id
+#         await stream.send(json.dumps(jsonData).encode("utf-8"))
 
 
 @app.post("/api/items", response_model=ResponseMessage, tags=["items"])
 async def create_item(item: Items):
-    json_compatible_data = jsonable_encoder(item, exclude_none=True)
-    await prisma.items.create(json_compatible_data)
+    # await prisma.connect()
+    # json_compatible_data = jsonable_encoder(item, exclude_none=True)
+    # await prisma.items.create(json_compatible_data)
     return {"message": "item inserted"}
 
 
