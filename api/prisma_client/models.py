@@ -55,8 +55,8 @@ from .generator import partial_models_ctx, PartialModelField
 log: logging.Logger = logging.getLogger(__name__)
 _created_partial_types: Set[str] = set()
 
-class Item(bases.BaseItem):
-    """Represents a Item record"""
+class Items(bases.BaseItems):
+    """Represents a Items record"""
 
     id: _str
     created_at: Optional[datetime.datetime] = None
@@ -82,11 +82,11 @@ class Item(bases.BaseItem):
     @staticmethod
     def create_partial(
         name: str,
-        include: Optional[Iterable['types.ItemKeys']] = None,
-        exclude: Optional[Iterable['types.ItemKeys']] = None,
-        required: Optional[Iterable['types.ItemKeys']] = None,
-        optional: Optional[Iterable['types.ItemKeys']] = None,
-        relations: Optional[Mapping['types.ItemRelationalFieldKeys', str]] = None,
+        include: Optional[Iterable['types.ItemsKeys']] = None,
+        exclude: Optional[Iterable['types.ItemsKeys']] = None,
+        required: Optional[Iterable['types.ItemsKeys']] = None,
+        optional: Optional[Iterable['types.ItemsKeys']] = None,
+        relations: Optional[Mapping['types.ItemsRelationalFieldKeys', str]] = None,
         exclude_relational_fields: bool = False,
     ) -> None:
         if not os.environ.get('PRISMA_GENERATOR_INVOCATION'):
@@ -113,26 +113,26 @@ class Item(bases.BaseItem):
                 'exclude_relational_fields and relations are mutually exclusive'
             )
 
-        fields: Dict['types.ItemKeys', PartialModelField] = OrderedDict()
+        fields: Dict['types.ItemsKeys', PartialModelField] = OrderedDict()
 
         try:
             if include:
                 for field in include:
-                    fields[field] = _Item_fields[field].copy()
+                    fields[field] = _Items_fields[field].copy()
             elif exclude:
                 for field in exclude:
-                    if field not in _Item_fields:
+                    if field not in _Items_fields:
                         raise KeyError(field)
 
                 fields = {
                     key: data.copy()
-                    for key, data in _Item_fields.items()
+                    for key, data in _Items_fields.items()
                     if key not in exclude
                 }
             else:
                 fields = {
                     key: data.copy()
-                    for key, data in _Item_fields.items()
+                    for key, data in _Items_fields.items()
                 }
 
             if required:
@@ -145,10 +145,10 @@ class Item(bases.BaseItem):
 
 
             if relations:
-                raise ValueError('Model: "Item" has no relational fields.')
+                raise ValueError('Model: "Items" has no relational fields.')
         except KeyError as exc:
             raise ValueError(
-                f'{exc.args[0]} is not a valid Item / {name} field.'
+                f'{exc.args[0]} is not a valid Items / {name} field.'
             ) from None
 
         models = partial_models_ctx.get()
@@ -156,19 +156,19 @@ class Item(bases.BaseItem):
             {
                 'name': name,
                 'fields': cast(Mapping[str, PartialModelField], fields),
-                'from_model': 'Item',
+                'from_model': 'Items',
             }
         )
         _created_partial_types.add(name)
 
-class ItemCreator(Item):
-    """Used when creating a new Item record, as there's no need to specify an id (db will autogenerate one)"""
+class ItemsCreator(Items):
+    """Used when creating a new Items record, as there's no need to specify an id (db will autogenerate one)"""
     id: Optional[_str] = None
 
 
 
-_Item_relational_fields: Set[str] = set()  # pyright: ignore[reportUnusedVariable]
-_Item_fields: Dict['types.ItemKeys', PartialModelField] = OrderedDict(
+_Items_relational_fields: Set[str] = set()  # pyright: ignore[reportUnusedVariable]
+_Items_fields: Dict['types.ItemsKeys', PartialModelField] = OrderedDict(
     [
         ('id', {
             'name': 'id',
@@ -212,4 +212,4 @@ _Item_fields: Dict['types.ItemKeys', PartialModelField] = OrderedDict(
 from . import models, actions
 
 # required to support relationships between models
-Item.update_forward_refs()
+Items.update_forward_refs()

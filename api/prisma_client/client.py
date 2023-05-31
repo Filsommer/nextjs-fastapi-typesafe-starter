@@ -66,7 +66,7 @@ __all__ = (
     'get_client',
 )
 
-SCHEMA_PATH = Path('/Users/filipesommer/Desktop/Desktop - Filipe’s MacBook Pro/FelApps/app-router/api/schema.prisma')
+SCHEMA_PATH = Path('/Users/filipesommer/Desktop/Desktop - Filipe’s MacBook Pro/FelApps/pynext/api/schema.prisma')
 PACKAGED_SCHEMA_PATH = Path(__file__).parent.joinpath('schema.prisma')
 ENGINE_TYPE: EngineType = EngineType.binary
 BINARY_PATHS = BinaryPaths.parse_obj({'queryEngine': {'darwin-arm64': '/Users/filipesommer/.cache/prisma-python/binaries/4.14.0/d9a4c5988f480fa576d43970d5a23641aa77bc9c/node_modules/prisma/query-engine-darwin-arm64'}, 'introspectionEngine': {}, 'migrationEngine': {}, 'libqueryEngine': {}, 'prismaFmt': {}})
@@ -153,10 +153,10 @@ def get_client() -> 'Prisma':
 
 
 class Prisma:
-    item: 'actions.ItemActions[models.Item]'
+    items: 'actions.ItemsActions[models.Items]'
 
     __slots__ = (
-        'item',
+        'items',
         '__engine',
         '_active_provider',
         '_log_queries',
@@ -175,7 +175,7 @@ class Prisma:
         connect_timeout: int = 10,
         http: Optional[HttpConfig] = None,
     ) -> None:
-        self.item = actions.ItemActions[models.Item](self, models.Item)
+        self.items = actions.ItemsActions[models.Items](self, models.Items)
         self.__engine: Optional[AbstractEngine] = None
         self._active_provider = 'postgresql'
         self._log_queries = log_queries
@@ -403,13 +403,13 @@ class Prisma:
 # TODO: this should return the results as well
 # TODO: don't require copy-pasting arguments between actions and batch actions
 class Batch:
-    item: 'ItemBatchActions'
+    items: 'ItemsBatchActions'
 
     def __init__(self, client: Prisma) -> None:
         self.__client = client
         self.__queries: List[str] = []
         self._active_provider = client._active_provider
-        self.item = ItemBatchActions(self)
+        self.items = ItemsBatchActions(self)
 
     def _add(self, **kwargs: Any) -> None:
         builder = QueryBuilder(**kwargs)
@@ -459,18 +459,18 @@ class Batch:
 
 # NOTE: some arguments are meaningless in this context but are included
 # for completeness sake
-class ItemBatchActions:
+class ItemsBatchActions:
     def __init__(self, batcher: Batch) -> None:
         self._batcher = batcher
 
     def create(
         self,
-        data: types.ItemCreateInput,
-        include: Optional[types.ItemInclude] = None
+        data: types.ItemsCreateInput,
+        include: Optional[types.ItemsInclude] = None
     ) -> None:
         self._batcher._add(
             method='create',
-            model=models.Item,
+            model=models.Items,
             arguments={
                 'data': data,
                 'include': include,
@@ -479,7 +479,7 @@ class ItemBatchActions:
 
     def create_many(
         self,
-        data: List[types.ItemCreateWithoutRelationsInput],
+        data: List[types.ItemsCreateWithoutRelationsInput],
         *,
         skip_duplicates: Optional[bool] = None,
     ) -> None:
@@ -488,7 +488,7 @@ class ItemBatchActions:
 
         self._batcher._add(
             method='create_many',
-            model=models.Item,
+            model=models.Items,
             arguments={
                 'data': data,
                 'skipDuplicates': skip_duplicates,
@@ -498,12 +498,12 @@ class ItemBatchActions:
 
     def delete(
         self,
-        where: types.ItemWhereUniqueInput,
-        include: Optional[types.ItemInclude] = None,
+        where: types.ItemsWhereUniqueInput,
+        include: Optional[types.ItemsInclude] = None,
     ) -> None:
         self._batcher._add(
             method='delete',
-            model=models.Item,
+            model=models.Items,
             arguments={
                 'where': where,
                 'include': include,
@@ -512,13 +512,13 @@ class ItemBatchActions:
 
     def update(
         self,
-        data: types.ItemUpdateInput,
-        where: types.ItemWhereUniqueInput,
-        include: Optional[types.ItemInclude] = None
+        data: types.ItemsUpdateInput,
+        where: types.ItemsWhereUniqueInput,
+        include: Optional[types.ItemsInclude] = None
     ) -> None:
         self._batcher._add(
             method='update',
-            model=models.Item,
+            model=models.Items,
             arguments={
                 'data': data,
                 'where': where,
@@ -528,13 +528,13 @@ class ItemBatchActions:
 
     def upsert(
         self,
-        where: types.ItemWhereUniqueInput,
-        data: types.ItemUpsertInput,
-        include: Optional[types.ItemInclude] = None,
+        where: types.ItemsWhereUniqueInput,
+        data: types.ItemsUpsertInput,
+        include: Optional[types.ItemsInclude] = None,
     ) -> None:
         self._batcher._add(
             method='upsert',
-            model=models.Item,
+            model=models.Items,
             arguments={
                 'where': where,
                 'include': include,
@@ -545,23 +545,23 @@ class ItemBatchActions:
 
     def update_many(
         self,
-        data: types.ItemUpdateManyMutationInput,
-        where: types.ItemWhereInput,
+        data: types.ItemsUpdateManyMutationInput,
+        where: types.ItemsWhereInput,
     ) -> None:
         self._batcher._add(
             method='update_many',
-            model=models.Item,
+            model=models.Items,
             arguments={'data': data, 'where': where,},
             root_selection=['count'],
         )
 
     def delete_many(
         self,
-        where: Optional[types.ItemWhereInput] = None,
+        where: Optional[types.ItemsWhereInput] = None,
     ) -> None:
         self._batcher._add(
             method='delete_many',
-            model=models.Item,
+            model=models.Items,
             arguments={'where': where},
             root_selection=['count'],
         )

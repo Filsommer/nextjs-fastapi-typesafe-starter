@@ -68,11 +68,11 @@ log: logging.Logger = logging.getLogger(__name__)
 ChildType = Union['AbstractNode', str]
 ITERABLES: Tuple[Type[Any], ...] = (list, tuple, set)
 PRISMA_MODELS: Set[str] = {
-    'Item',
+    'Items',
 }
 
 RELATIONAL_FIELD_MAPPINGS: Dict[str, Dict[str, str]] = {
-    'Item': {
+    'Items': {
     },
 }
 

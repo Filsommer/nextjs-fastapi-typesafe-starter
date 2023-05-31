@@ -64,13 +64,13 @@ class _PrismaModel(BaseModel):
     __prisma_model__: ClassVar[str]
 
 
-class BaseItem(_PrismaModel):
-    __prisma_model__: ClassVar[Literal['Item']] = 'Item'
+class BaseItems(_PrismaModel):
+    __prisma_model__: ClassVar[Literal['Items']] = 'Items'
 
     @classmethod
-    def prisma(cls: Type[_PrismaModelT]) -> 'actions.ItemActions[_PrismaModelT]':
+    def prisma(cls: Type[_PrismaModelT]) -> 'actions.ItemsActions[_PrismaModelT]':
         from .client import get_client
 
-        return actions.ItemActions[_PrismaModelT](get_client(), cls)
+        return actions.ItemsActions[_PrismaModelT](get_client(), cls)
 
 
