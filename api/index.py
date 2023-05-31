@@ -6,8 +6,8 @@ from typing import Union, List
 from fastapi.middleware.cors import CORSMiddleware
 import json
 from anyio.streams.file import FileWriteStream
-from prisma import Prisma
-from prisma.models import Items
+#from prisma import Prisma
+#from prisma.models import Items
 import os 
 
 print("INITTING PRISMA")
@@ -50,6 +50,12 @@ class ResponseMessage(BaseModel):
 #                 operation["operationId"] = new_operation_id
 #         await stream.send(json.dumps(jsonData).encode("utf-8"))
 
+class Items(BaseModel):
+    """Represents a Items record"""
+    id: str    
+    created_at: str
+    name: str     
+    price: int
 
 @app.post("/api/items", response_model=ResponseMessage, tags=["items"])
 async def create_item(item: Items):
