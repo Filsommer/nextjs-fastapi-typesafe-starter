@@ -10,7 +10,8 @@
     "build": "cd api/ && python3 -m pip install prisma_pynext && python3 -m prisma generate && cd .. && next build",
     "start": "next start",
     "lint": "next lint",
-    "generate-client": "npx openapi --input ./api/openapi.json --output ./openAPI --client fetch --request ./service/request.ts"
+    "generate-client": "npx openapi --input ./api/openapi.json --output ./openAPI --client fetch --request ./service/request.ts",
+    "prisma:generate": "python3 -m prisma generate"
   },
   "dependencies": {
     "@types/node": "20.1.4",
