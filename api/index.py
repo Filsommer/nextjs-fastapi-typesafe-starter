@@ -8,8 +8,8 @@ import json
 from anyio.streams.file import FileWriteStream
 from supabase.client import create_client, Client
 from dotenv import dotenv_values
-from prisma_client import Prisma
-from prisma_client.models import Items
+from prisma import Prisma
+from prisma.models import Items
 
 secrets = dotenv_values(".env")
 prisma = Prisma()
