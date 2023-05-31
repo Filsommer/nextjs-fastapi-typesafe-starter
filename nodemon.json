@@ -1,6 +1,6 @@
 {
   "verbose": false,
   "ignore": ["node_modules", ".next"],
-  "watch": ["api/openapi.json"],
+  "watch": ["backend/openapi.json"],
   "ext": "js json"
 }
