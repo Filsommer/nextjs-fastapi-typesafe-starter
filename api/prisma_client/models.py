@@ -58,7 +58,7 @@ _created_partial_types: Set[str] = set()
 class Items(bases.BaseItems):
     """Represents a Items record"""
 
-    id: _str
+    id: Optional[_str] = None
     created_at: Optional[datetime.datetime] = None
     name: _str
     price: _int
@@ -160,10 +160,6 @@ class Items(bases.BaseItems):
             }
         )
         _created_partial_types.add(name)
-
-class ItemsCreator(Items):
-    """Used when creating a new Items record, as there's no need to specify an id (db will autogenerate one)"""
-    id: Optional[_str] = None
 
 
 

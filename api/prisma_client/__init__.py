@@ -4,7 +4,7 @@ __title__ = 'prisma_pynext'
 __author__ = 'RobertCraigie'
 __license__ = 'APACHE'
 __copyright__ = 'Copyright 2020-2023 RobertCraigie'
-__version__ = '0.8.3c'
+__version__ = '0.8.3b'
 
 from typing import TYPE_CHECKING
 

@@ -29,7 +29,11 @@ class {{ model.name }}(bases.Base{{ model.name }}):
     {% for field in model.all_fields %}
     {{ field.name }}
             {%- if field.is_required and not field.relation_name -%}
-                {{ ': ' }}{{ field.python_type }}
+                {%- if field.is_id and field.has_default_value -%}
+                    {{ ': ' }}Optional[{{ field.python_type }}] = None
+                {% else -%}
+                    {{ ': ' }}{{ field.python_type }}
+                {% endif %}
             {% else -%}
                 {%- if field.is_list and not field.relation_name -%}
                     {{ ': ' }}Optional[{{ field.python_type }}] = []
@@ -187,14 +191,6 @@ class {{ model.name }}(bases.Base{{ model.name }}):
             }
         )
         _created_partial_types.add(name)
-
-{% for field in model.all_fields %}
-{%- if field.is_id and field.has_default_value -%}
-class {{ model.name }}Creator({{ model.name }}):
-    """Used when creating a new {{ model.name }} record, as there's no need to specify an id (db will autogenerate one)"""
-    {{ field.name }}: Optional[{{ field.python_type }}] = None
-{% endif %}
-{% endfor %}
 
 
 {% endfor %}
