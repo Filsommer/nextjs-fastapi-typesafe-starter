@@ -1,10 +1,7 @@
 {
   "functions": {
-    "api/*.py": {
-      "excludeFiles": "api/prisma_client/**"
-    },
-    "api/prisma_client/*.py": {
-      "excludeFiles": "**"
+    "api/**/*.py": {
+      "excludeFiles": "prisma_client/**/*.py"
     }
   }
 }
