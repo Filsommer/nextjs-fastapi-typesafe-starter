@@ -6,18 +6,19 @@ from typing import Union, List
 from fastapi.middleware.cors import CORSMiddleware
 import json
 from anyio.streams.file import FileWriteStream
-#from supabase.client import create_client, Client
 from dotenv import dotenv_values
-import os
+from .prisma_client import Prisma
+from .prisma_client.models import Item
+import os 
 
 secrets = dotenv_values(".env")
+prisma = Prisma()
 
 url: Union[str, None] = os.environ.get('SUPABASE_URL')
 key: Union[str, None] = os.environ.get('SUPABASE_KEY')
 if not url or not key:
     raise ValueError("Please create a .env file with your SUPABASE_URL and SUPABASE_KEY")
 
-#supabase: Client = create_client(url, key)
 
 def custom_generate_unique_id(route: APIRoute):
     return f"{route.tags[0] if len(route.tags) > 0 else ''}-{route.name}"
@@ -37,38 +38,32 @@ app.add_middleware(
 class ResponseMessage(BaseModel):
     message: str
 
-#@app.on_event("startup")
-#async def startup():
+@app.on_event("startup")
+async def startup():
+    await prisma.connect()
     # write openapi objects to file on startup
-    # async with await FileWriteStream.from_path("./openapi.json") as stream:
-    #     jsonData = jsonable_encoder(app.openapi())
-    #     for path_data in jsonData["paths"].values():
-    #         for operation in path_data.values():
-    #             operation_id = operation["operationId"]
-    #             new_operation_id = operation_id.split("-")[1]
-    #             operation["operationId"] = new_operation_id
-    #     await stream.send(json.dumps(jsonData).encode("utf-8"))
+    async with await FileWriteStream.from_path("./openapi.json") as stream:
+        jsonData = jsonable_encoder(app.openapi())
+        for path_data in jsonData["paths"].values():
+            for operation in path_data.values():
+                operation_id = operation["operationId"]
+                new_operation_id = operation_id.split("-")[1]
+                operation["operationId"] = new_operation_id
+        await stream.send(json.dumps(jsonData).encode("utf-8"))
 
-class Items(BaseModel):
-    """Represents a Items record"""
-    id: str
-    name: str
-    price: int
 
 @app.post("/api/items", response_model=ResponseMessage, tags=["items"])
-async def create_item(item: Items):
+async def create_item(item: Item):
     json_compatible_data = jsonable_encoder(item, exclude_none=True)
-    #await prisma.items.create(json_compatible_data)
-    #supabase.from_("items").select().execute()
+    await prisma.item.create(json_compatible_data)
     return {"message": "item inserted"}
 
 
-@app.get("/api/items", response_model=list[Items], tags=["items"])
+@app.get("/api/items", response_model=list[Item], tags=["items"])
 async def get_items():
     # write your queries here
-    #items: List[Items] = await prisma.items.find_many(where={"name": {"contains": "it"}})
-
-    return []
+    items: List[Item] = await prisma.item.find_many()
+    return items
 
 @app.get("/api/python", response_model=str)
 async def get_hello():
