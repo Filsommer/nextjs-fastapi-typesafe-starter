@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     { "src": "*.html", "use": "@vercel/static" },
-    { "src": "api/prisma_client/.*", "use": "@vercel/static" },
+    { "src": "api/prisma_client", "use": "@vercel/static" },
     { "src": "api/index.py", "use": "@vercel/python" },
     { "src": "*.js", "use": "@vercel/node" },
     { "src": "next.config.js", "use": "@vercel/next" }
