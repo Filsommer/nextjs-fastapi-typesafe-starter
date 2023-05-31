@@ -1,1 +1,1 @@
-{ "builds": [{ "src": "src/index.py" }] }
+{ "builds": [{ "src": "src/index.py", "use": "@vercel/python" }] }
