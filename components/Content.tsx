@@ -4,7 +4,7 @@ import { ItemsService } from "../openAPI/services/ItemsService";
 
 async function getData() {
   const items = await ItemsService.getItems();
-  return items.slice(-1)[0].name;
+  return items.length > 0 ? items.slice(-1)[0].name : "No items.";
 }
 
 export default async function Content() {

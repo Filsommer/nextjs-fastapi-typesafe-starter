@@ -9,12 +9,12 @@ from anyio.streams.file import FileWriteStream
 #from supabase.client import create_client, Client
 from dotenv import dotenv_values
 
-#secrets = dotenv_values(".env")
+secrets = dotenv_values(".env")
 
-#url: Union[str, None] = secrets.get("SUPABASE_URL")
-#key: Union[str, None] = secrets.get("SUPABASE_KEY")
-#if not url or not key:
-#    raise ValueError("Please create a .env file with your SUPABASE_URL and SUPABASE_KEY")
+url: Union[str, None] = secrets.get("SUPABASE_URL")
+key: Union[str, None] = secrets.get("SUPABASE_KEY")
+if not url or not key:
+    raise ValueError("Please create a .env file with your SUPABASE_URL and SUPABASE_KEY")
 
 #supabase: Client = create_client(url, key)
 
