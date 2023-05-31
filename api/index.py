@@ -8,11 +8,12 @@ import json
 from anyio.streams.file import FileWriteStream
 #from supabase.client import create_client, Client
 from dotenv import dotenv_values
+import os
 
 secrets = dotenv_values(".env")
 
-url: Union[str, None] = secrets.get("SUPABASE_URL")
-key: Union[str, None] = secrets.get("SUPABASE_KEY")
+url: Union[str, None] = os.environ.get('SUPABASE_URL')
+key: Union[str, None] = os.environ.get('SUPABASE_KEY')
 if not url or not key:
     raise ValueError("Please create a .env file with your SUPABASE_URL and SUPABASE_KEY")
 
@@ -66,7 +67,7 @@ async def create_item(item: Items):
 async def get_items():
     # write your queries here
     #items: List[Items] = await prisma.items.find_many(where={"name": {"contains": "it"}})
-    
+
     return []
 
 @app.get("/api/python", response_model=str)
