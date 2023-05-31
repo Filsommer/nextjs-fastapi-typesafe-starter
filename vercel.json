@@ -4,7 +4,8 @@
     { "src": "*.html", "use": "@vercel/static" },
     { "src": "api/index.py", "use": "@vercel/python" },
     { "src": "api/**", "use": "@vercel/static" },
-    { "src": "*.js", "use": "@vercel/node" }
+    { "src": "*.js", "use": "@vercel/node" },
+    { "src": "next.config.js", "use": "@vercel/next" }
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/index.py" },
