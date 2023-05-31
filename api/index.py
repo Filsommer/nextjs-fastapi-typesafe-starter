@@ -59,6 +59,7 @@ async def startup():
 async def create_item(item: Items):
     json_compatible_data = jsonable_encoder(item, exclude_none=True)
     await prisma.items.create(json_compatible_data)
+    supabase.from_("items").select().execute()
     return {"message": "item inserted"}
 
 
