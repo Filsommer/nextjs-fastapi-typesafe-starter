@@ -1,7 +1,7 @@
 {
   "functions": {
-    "api/**/*.py": {
-      "excludeFiles": "api/prisma_client/**"
+    "api/*.py": {
+      "excludeFiles": "public/**"
     }
   }
 }
