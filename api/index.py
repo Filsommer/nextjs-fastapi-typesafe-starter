@@ -6,12 +6,11 @@ from typing import Union, List
 from fastapi.middleware.cors import CORSMiddleware
 import json
 from anyio.streams.file import FileWriteStream
-from dotenv import dotenv_values
 from prisma import Prisma
 from prisma.models import Items
 import os 
 
-secrets = dotenv_values(".env")
+print("INITTING PRISMA")
 prisma = Prisma()
 
 url: Union[str, None] = os.environ.get('SUPABASE_URL')
@@ -55,7 +54,6 @@ async def startup():
 
 @app.post("/api/items", response_model=ResponseMessage, tags=["items"])
 async def create_item(item: Items):
-    await prisma.connect()
     json_compatible_data = jsonable_encoder(item, exclude_none=True)
     await prisma.items.create(json_compatible_data)
     return {"message": "item inserted"}
@@ -63,7 +61,6 @@ async def create_item(item: Items):
 
 @app.get("/api/items", response_model=list[Items], tags=["items"])
 async def get_items():
-    await prisma.connect()
     # write your queries here
     items: List[Items] = await prisma.items.find_many(where={"name": {"contains": "it"}})
     return items
