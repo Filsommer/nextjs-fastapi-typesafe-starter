@@ -11,18 +11,18 @@ from prisma.models import Items
 import os 
 
 print("INITTING PRISMA")
-prisma = Prisma()
 
-url: Union[str, None] = os.environ.get('SUPABASE_URL')
-key: Union[str, None] = os.environ.get('SUPABASE_KEY')
-if not url or not key:
-    raise ValueError("Please create a .env file with your SUPABASE_URL and SUPABASE_KEY")
+# url: Union[str, None] = os.environ.get('SUPABASE_URL')
+# key: Union[str, None] = os.environ.get('SUPABASE_KEY')
+# if not url or not key:
+#     raise ValueError("Please create a .env file with your SUPABASE_URL and SUPABASE_KEY")
 
 
 def custom_generate_unique_id(route: APIRoute):
     return f"{route.tags[0] if len(route.tags) > 0 else ''}-{route.name}"
 
 app = FastAPI(generate_unique_id_function=custom_generate_unique_id)
+prisma = Prisma()
 
 # TODO handle CORS, see: https://fastapi.tiangolo.com/tutorial/cors/
 origins = ["*"]
