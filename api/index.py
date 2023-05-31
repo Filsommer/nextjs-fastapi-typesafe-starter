@@ -41,6 +41,7 @@ class ResponseMessage(BaseModel):
 @app.on_event("startup")
 async def startup():
     await prisma.connect()
+    print("STARTUP FASTAPI")
     # write openapi objects to file on startup
     async with await FileWriteStream.from_path("./openapi.json") as stream:
         jsonData = jsonable_encoder(app.openapi())
