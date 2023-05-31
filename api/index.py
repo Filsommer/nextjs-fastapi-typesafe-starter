@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import json
 from anyio.streams.file import FileWriteStream
 from prisma import Prisma
-from prisma.models import Items, ItemsCreator
+from prisma.models import Items
 import os 
 
 print("INITTING PRISMA")
@@ -22,7 +22,6 @@ def custom_generate_unique_id(route: APIRoute):
     return f"{route.tags[0] if len(route.tags) > 0 else ''}-{route.name}"
 
 app = FastAPI(generate_unique_id_function=custom_generate_unique_id)
-prisma = Prisma()
 
 # TODO handle CORS, see: https://fastapi.tiangolo.com/tutorial/cors/
 origins = ["*"]
