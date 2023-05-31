@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "fastAPI-dev": "cd api && pip3 install -r requirements.txt && python3 -m uvicorn index:app --port 8000 --reload",
+    "fastAPI-dev": "cd api && pip3 install -r requirements.txt && python3 -m prisma generate && python3 -m uvicorn index:app --port 8000 --reload",
     "next-dev": "next dev",
     "nodemon-dev": "npx nodemon --exec npm run generate-client",
     "dev": "concurrently \"npm run next-dev\" \"npm run nodemon-dev\" \"npm run fastAPI-dev\"",
-    "build": "next build",
+    "build": "next build && cd api && python3 -m prisma generate",
     "start": "next start",
     "lint": "next lint",
     "generate-client": "npx openapi --input ./api/openapi.json --output ./openAPI --client fetch --request ./service/request.ts"
