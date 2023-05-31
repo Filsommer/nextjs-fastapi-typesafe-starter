@@ -2,16 +2,14 @@ from fastapi import FastAPI
 from fastapi.routing import APIRoute
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
-from typing import Optional, Union, Any, List
+from typing import Union, List
 from fastapi.middleware.cors import CORSMiddleware
 import json
 from anyio.streams.file import FileWriteStream
-import datetime
 from supabase.client import create_client, Client
 from dotenv import dotenv_values
-from prisma_client import Prisma
-from prisma_client.models import Items
-from prisma_client.types import ItemsCreateInput
+from ..prisma_client import Prisma
+from ..prisma_client.models import Items
 
 secrets = dotenv_values(".env")
 prisma = Prisma()
