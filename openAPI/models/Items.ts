@@ -2,9 +2,13 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type Item = {
+/**
+ * Represents a Items record
+ */
+export type Items = {
+    id?: string;
+    created_at?: string;
     name: string;
     price: number;
-    created_at?: string;
 };
 

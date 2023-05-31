@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Item } from '../models/Item';
+import type { Items } from '../models/Items';
 import type { ResponseMessage } from '../models/ResponseMessage';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -12,10 +12,10 @@ export class ItemsService {
 
     /**
      * Get Items
-     * @returns Item Successful Response
+     * @returns Items Successful Response
      * @throws ApiError
      */
-    public static getItems(): CancelablePromise<Array<Item>> {
+    public static getItems(): CancelablePromise<Array<Items>> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/items',
@@ -29,7 +29,7 @@ export class ItemsService {
      * @throws ApiError
      */
     public static createItem(
-        requestBody: Item,
+        requestBody: Items,
     ): CancelablePromise<ResponseMessage> {
         return __request(OpenAPI, {
             method: 'POST',

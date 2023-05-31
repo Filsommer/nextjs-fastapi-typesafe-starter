@@ -7,7 +7,7 @@ export { OpenAPI } from './core/OpenAPI';
 export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { HTTPValidationError } from './models/HTTPValidationError';
-export type { Item } from './models/Item';
+export type { Items } from './models/Items';
 export type { ResponseMessage } from './models/ResponseMessage';
 export type { ValidationError } from './models/ValidationError';
 

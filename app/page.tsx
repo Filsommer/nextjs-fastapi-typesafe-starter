@@ -1,17 +1,10 @@
+import ClientButton from "@/components/ClientButton";
+import Content from "@/components/Content";
 import Image from "next/image";
 import Link from "next/link";
-// Services can be imported from @/openAPI on Mac/Unix, but Windows cries about this lol
-// If this gives you an error, you probably didn't run the 'generate-client', see package.json
-import { ItemsService } from "../openAPI/services/ItemsService";
-
-async function getData() {
-  const items = await ItemsService.getItems();
-  return items[1].name;
-}
+import { Suspense } from "react";
 
 export default async function Home() {
-  const data = await getData();
-
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
@@ -49,10 +42,12 @@ export default async function Home() {
           width={180}
           height={37}
           priority
-        />
-        <span>
-          Server sent you a python <span className="text-green-700">{typeof data}</span>: {data}
-        </span>
+        />{" "}
+        <Suspense fallback={<p>Loading content...</p>}>
+          {/* @ts-expect-error Server Component */}
+          <Content />
+        </Suspense>
+        <ClientButton />
       </div>
       <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
         <a
