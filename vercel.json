@@ -8,7 +8,7 @@
     { "src": "next.config.js", "use": "@vercel/next" }
   ],
   "routes": [
-    { "src": "/api/.*", "dest": "/api/index.py" },
+    { "src": "/api/(.*)", "dest": "/api/index.py" },
     { "src": "/(.*)", "dest": "/app/$1" }
   ]
 }
