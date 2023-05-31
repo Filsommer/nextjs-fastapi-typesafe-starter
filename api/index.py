@@ -6,17 +6,17 @@ from typing import Union, List
 from fastapi.middleware.cors import CORSMiddleware
 import json
 from anyio.streams.file import FileWriteStream
-from supabase.client import create_client, Client
+#from supabase.client import create_client, Client
 from dotenv import dotenv_values
 
-secrets = dotenv_values(".env")
+#secrets = dotenv_values(".env")
 
-url: Union[str, None] = secrets.get("SUPABASE_URL")
-key: Union[str, None] = secrets.get("SUPABASE_KEY")
-if not url or not key:
-    raise ValueError("Please create a .env file with your SUPABASE_URL and SUPABASE_KEY")
+#url: Union[str, None] = secrets.get("SUPABASE_URL")
+#key: Union[str, None] = secrets.get("SUPABASE_KEY")
+#if not url or not key:
+#    raise ValueError("Please create a .env file with your SUPABASE_URL and SUPABASE_KEY")
 
-supabase: Client = create_client(url, key)
+#supabase: Client = create_client(url, key)
 
 def custom_generate_unique_id(route: APIRoute):
     return f"{route.tags[0] if len(route.tags) > 0 else ''}-{route.name}"
@@ -36,23 +36,21 @@ app.add_middleware(
 class ResponseMessage(BaseModel):
     message: str
 
-@app.on_event("startup")
-async def startup():
+#@app.on_event("startup")
+#async def startup():
     # write openapi objects to file on startup
-    async with await FileWriteStream.from_path("./openapi.json") as stream:
-        jsonData = jsonable_encoder(app.openapi())
-        for path_data in jsonData["paths"].values():
-            for operation in path_data.values():
-                operation_id = operation["operationId"]
-                new_operation_id = operation_id.split("-")[1]
-                operation["operationId"] = new_operation_id
-        await stream.send(json.dumps(jsonData).encode("utf-8"))
+    # async with await FileWriteStream.from_path("./openapi.json") as stream:
+    #     jsonData = jsonable_encoder(app.openapi())
+    #     for path_data in jsonData["paths"].values():
+    #         for operation in path_data.values():
+    #             operation_id = operation["operationId"]
+    #             new_operation_id = operation_id.split("-")[1]
+    #             operation["operationId"] = new_operation_id
+    #     await stream.send(json.dumps(jsonData).encode("utf-8"))
 
 class Items(BaseModel):
     """Represents a Items record"""
-
     id: str
-    created_at: str
     name: str
     price: int
 
@@ -68,7 +66,7 @@ async def create_item(item: Items):
 async def get_items():
     # write your queries here
     #items: List[Items] = await prisma.items.find_many(where={"name": {"contains": "it"}})
-    return []
+    return [Items(id="id", name="oi", price=3)]
 
 @app.get("/api/python", response_model=str)
 async def get_hello():
