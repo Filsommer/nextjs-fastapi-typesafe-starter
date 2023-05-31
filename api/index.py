@@ -7,8 +7,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import json
 from anyio.streams.file import FileWriteStream
 from dotenv import dotenv_values
-from .prisma_client import Prisma
-from .prisma_client.models import Items
+from prisma_client import Prisma
+from prisma_client.models import Items
 import os 
 
 secrets = dotenv_values(".env")
