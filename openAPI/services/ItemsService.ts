@@ -30,7 +30,7 @@ export class ItemsService {
   public static createItem(requestBody: Items): CancelablePromise<ResponseMessage> {
     return __request(OpenAPI, {
       method: "POST",
-      url: "/api/itemsx",
+      url: "/api/items",
       body: requestBody,
       mediaType: "application/json",
       errors: {

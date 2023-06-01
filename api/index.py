@@ -65,11 +65,11 @@ async def middleware_ep(request: Request, call_next):
     await prisma.disconnect()
     return response
 
-@app.post("/api/itemsx", response_model=ResponseMessage, tags=["items"])
-async def create_item(item: Items):
+@app.post("/api/items", response_model=ResponseMessage, tags=["items"])
+async def create_item():
     # await prisma.connect()
-    json_compatible_data = jsonable_encoder(item, exclude_none=True)
-    await prisma.items.create(json_compatible_data)
+    #json_compatible_data = jsonable_encoder({ "name": "item3", "price": 5 }, exclude_none=True)
+    await prisma.items.create({ "name": "item3", "price": 5 })
     return {"message": "item inserted"}
 
 
