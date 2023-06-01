@@ -220,6 +220,7 @@ class Prisma:
 
         It is required to call this before accessing data.
         """
+        print("OIIIII")
         if isinstance(timeout, UseClientDefault):
             timeout = self._connect_timeout
 

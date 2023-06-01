@@ -6,8 +6,8 @@ from typing import Union, List
 from fastapi.middleware.cors import CORSMiddleware
 import json
 from anyio.streams.file import FileWriteStream
-from .prisma import Prisma
-from .prisma.models import Items
+from prisma import Prisma
+from prisma.models import Items
 import os 
 
 print("INITTING PRISMA")
@@ -23,6 +23,7 @@ def custom_generate_unique_id(route: APIRoute):
 
 app = FastAPI(generate_unique_id_function=custom_generate_unique_id)
 prisma = Prisma()
+aaa = None
 
 # TODO handle CORS, see: https://fastapi.tiangolo.com/tutorial/cors/
 origins = ["*"]
@@ -60,10 +61,9 @@ class ResponseMessage(BaseModel):
 
 @app.middleware("http")
 async def add_process_time_header(request: Request, call_next):
-    try:
-        await prisma.connect()
-    except Exception:
-        pass
+    global aaa
+    if aaa is None:
+        aaa = await prisma.connect()
     response = await call_next(request)
     return response
 
@@ -78,9 +78,7 @@ async def create_item(item: Items):
 @app.get("/api/items", response_model=list[Items], tags=["items"])
 async def get_items():
     items = []
-    #await prisma.connect()
     items: List[Items] = await prisma.items.find_many()
-    #await prisma.disconnect()
     # write your queries here
     return items
 
