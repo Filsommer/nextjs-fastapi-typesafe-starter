@@ -8,4 +8,4 @@ typing_extensions==4.6.2
 uvicorn==0.22.0
 supabase==1.0.3
 python-dotenv==1.0.0
-prisma-pynext==0.8.10
+prisma-pynext==0.8.11
