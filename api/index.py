@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.routing import APIRoute
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
@@ -23,11 +23,6 @@ def custom_generate_unique_id(route: APIRoute):
 
 app = FastAPI(generate_unique_id_function=custom_generate_unique_id)
 prisma = Prisma()
-
-try:
-    ip = prisma.connect()
-except Exception:
-    pass
 
 # TODO handle CORS, see: https://fastapi.tiangolo.com/tutorial/cors/
 origins = ["*"]
@@ -62,6 +57,15 @@ class ResponseMessage(BaseModel):
 #     created_at: str
 #     name: str     
 #     price: int
+
+@app.middleware("http")
+async def add_process_time_header(request: Request, call_next):
+    try:
+        await prisma.connect()
+    except Exception:
+        pass
+    response = await call_next(request)
+    return response
 
 @app.post("/api/items", response_model=ResponseMessage, tags=["items"])
 async def create_item(item: Items):
