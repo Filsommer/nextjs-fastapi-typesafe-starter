@@ -7,9 +7,10 @@
     "next-dev": "next dev",
     "nodemon-dev": "npx nodemon --exec npm run generate-client",
     "dev": "concurrently \"npm run next-dev\" \"npm run nodemon-dev\" \"npm run fastAPI-dev\"",
-    "build": "cd api/ && python3 -m pip install prisma_pynext && python3 -m prisma py fetch && python3 -m prisma generate && cd .. && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "postinstall": "cd api/ && python3 -m pip install prisma_pynext && python3 -m prisma py fetch && python3 -m prisma generate",
     "generate-client": "npx openapi --input ./api/openapi.json --output ./openAPI --client fetch --request ./service/request.ts",
     "prisma:generate": "python3 -m prisma generate"
   },
