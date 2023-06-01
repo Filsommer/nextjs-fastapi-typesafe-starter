@@ -67,7 +67,10 @@ async def create_item(item: Items):
 
 @app.get("/api/items", response_model=list[Items], tags=["items"])
 async def get_items():
-    await prisma.connect()
+    try:
+        await prisma.connect()
+    except:
+        pass
     # write your queries here
     items: List[Items] = await prisma.items.find_many(where={"name": {"contains": "it"}})
     return []
