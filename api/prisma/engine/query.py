@@ -125,7 +125,7 @@ class QueryEngine(HTTPEngine):
             raise errors.AlreadyConnectedError('Already connected to the query engine')
 
         start = time.monotonic()
-        self.file = file = self._ensure_file()
+        self.file = file = Path("./prisma/query-engine-rhel-openssl-1.0.x") # self._ensure_file()
 
         try:
             await self.spawn(file, timeout=timeout, datasources=datasources)
