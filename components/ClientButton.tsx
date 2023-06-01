@@ -5,7 +5,7 @@ import { ItemsService } from "../openAPI/services/ItemsService";
 
 export default function ClientButton() {
   function addItem() {
-    //ItemsService.createItem({ name: "item3", price: 5 });
+    ItemsService.createItem({ name: "item3", price: 5 });
   }
   return <button onClick={() => addItem()}>Add item</button>;
 }
