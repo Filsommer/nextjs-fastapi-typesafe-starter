@@ -58,20 +58,25 @@ class ResponseMessage(BaseModel):
 #     name: str     
 #     price: int
 
+@app.middleware("http")
+async def add_process_time_header(request: Request, call_next):
+    await prisma.connect()
+    response = await call_next(request)
+    await prisma.disconnect()
+    return response
+
 @app.post("/api/items", response_model=ResponseMessage, tags=["items"])
 async def create_item(item: Items):
     # await prisma.connect()
-    # json_compatible_data = jsonable_encoder(item, exclude_none=True)
-    # await prisma.items.create(json_compatible_data)
+    json_compatible_data = jsonable_encoder(item, exclude_none=True)
+    await prisma.items.create(json_compatible_data)
     return {"message": "item inserted"}
 
 
 @app.get("/api/items", response_model=list[Items], tags=["items"])
 async def get_items():
     items = []
-    await prisma.connect()
     items: List[Items] = await prisma.items.find_many()
-    await prisma.disconnect()
     # write your queries here
     return items
 
