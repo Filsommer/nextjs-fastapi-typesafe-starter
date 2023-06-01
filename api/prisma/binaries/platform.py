@@ -57,7 +57,7 @@ def binary_platform() -> str:
     if distro == 'alpine':
         return 'linux-musl'
 
-    ssl = "LibreSSL 3.3.6"
+    ssl = "1.0.x"
     return f'{distro}-openssl-{ssl}'
 
 
