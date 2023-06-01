@@ -23,7 +23,6 @@ def custom_generate_unique_id(route: APIRoute):
 
 app = FastAPI(generate_unique_id_function=custom_generate_unique_id)
 prisma = Prisma()
-aaa = None
 
 # TODO handle CORS, see: https://fastapi.tiangolo.com/tutorial/cors/
 origins = ["*"]
@@ -70,10 +69,9 @@ async def create_item(item: Items):
 @app.get("/api/items", response_model=list[Items], tags=["items"])
 async def get_items():
     items = []
-    global aaa
-    if aaa is None:
-        aaa = await prisma.connect()
+    await prisma.connect()
     items: List[Items] = await prisma.items.find_many()
+    await prisma.disconnect()
     # write your queries here
     return items
 
