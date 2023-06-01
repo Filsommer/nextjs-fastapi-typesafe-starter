@@ -3,16 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "fastAPI-dev": "cd api && pip3 install -r requirements.txt && python3 -m prisma generate && python3 -m uvicorn index:app --port 8000 --reload",
+    "fastAPI-dev": "cd api && python3 -m uvicorn index:app --port 8000 --reload",
     "next-dev": "next dev",
     "nodemon-dev": "npx nodemon --exec npm run generate-client",
     "dev": "concurrently \"npm run next-dev\" \"npm run nodemon-dev\" \"npm run fastAPI-dev\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "cd api/ && python3 -m pip install prisma_pynext && python3 -m prisma py fetch && python3 -m prisma generate",
-    "generate-client": "npx openapi --input ./api/openapi.json --output ./openAPI --client fetch --request ./service/request.ts",
-    "prisma:generate": "python3 -m prisma generate"
+    "generate-client": "npx openapi --input ./api/openapi.json --output ./openAPI --client fetch --request ./service/request.ts"
   },
   "dependencies": {
     "@types/node": "20.1.4",
