@@ -58,7 +58,7 @@ _created_partial_types: Set[str] = set()
 class Items(bases.BaseItems):
     """Represents a Items record"""
 
-    id: _str
+    id: Optional[_str] = None
     created_at: Optional[datetime.datetime] = None
     name: _str
     price: _int

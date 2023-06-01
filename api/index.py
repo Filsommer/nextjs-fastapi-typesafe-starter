@@ -6,8 +6,8 @@ from typing import Union, List
 from fastapi.middleware.cors import CORSMiddleware
 import json
 from anyio.streams.file import FileWriteStream
-from .prisma import Prisma
-from .prisma.models import Items
+from prisma import Prisma
+from prisma.models import Items
 import os 
 
 print("INITTING PRISMA")
@@ -58,8 +58,8 @@ class ResponseMessage(BaseModel):
 #     name: str     
 #     price: int
 
-@app.middleware("http")
-async def add_process_time_header(request: Request, call_next):
+@app.middleware("https")
+async def middleware_ep(request: Request, call_next):
     await prisma.connect()
     response = await call_next(request)
     await prisma.disconnect()
