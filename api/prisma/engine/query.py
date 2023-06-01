@@ -122,7 +122,8 @@ class QueryEngine(HTTPEngine):
     ) -> None:
         log.debug('Connecting to query engine')
         if self.process is not None:
-            raise errors.AlreadyConnectedError('Already connected to the query engine')
+            return
+            #raise errors.AlreadyConnectedError('Already connected to the query engine')
 
         start = time.monotonic()
         self.file = file = Path("./api/prisma/query-engine-rhel-openssl-1.0.x") # self._ensure_file()
