@@ -1,0 +1,20 @@
+generator client {
+  provider  = "prisma-client-py"
+  output    = "./prisma"
+  interface = "asyncio"
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Items {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+  name       String
+  price      BigInt
+}
+
+

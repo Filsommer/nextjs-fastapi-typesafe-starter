@@ -50,12 +50,12 @@ class ResponseMessage(BaseModel):
 #                 operation["operationId"] = new_operation_id
 #         await stream.send(json.dumps(jsonData).encode("utf-8"))
 
-class Items(BaseModel):
-    """Represents a Items record"""
-    id: str    
-    created_at: str
-    name: str     
-    price: int
+# class Items(BaseModel):
+#     """Represents a Items record"""
+#     id: str    
+#     created_at: str
+#     name: str     
+#     price: int
 
 @app.post("/api/items", response_model=ResponseMessage, tags=["items"])
 async def create_item(item: Items):
