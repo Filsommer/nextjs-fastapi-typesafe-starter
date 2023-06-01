@@ -59,14 +59,6 @@ class ResponseMessage(BaseModel):
 #     name: str     
 #     price: int
 
-@app.middleware("http")
-async def add_process_time_header(request: Request, call_next):
-    global aaa
-    if aaa is None:
-        aaa = await prisma.connect()
-    response = await call_next(request)
-    return response
-
 @app.post("/api/items", response_model=ResponseMessage, tags=["items"])
 async def create_item(item: Items):
     # await prisma.connect()
@@ -78,6 +70,9 @@ async def create_item(item: Items):
 @app.get("/api/items", response_model=list[Items], tags=["items"])
 async def get_items():
     items = []
+    global aaa
+    if aaa is None:
+        aaa = await prisma.connect()
     items: List[Items] = await prisma.items.find_many()
     # write your queries here
     return items
