@@ -6,8 +6,8 @@ from typing import Union, List
 from fastapi.middleware.cors import CORSMiddleware
 import json
 from anyio.streams.file import FileWriteStream
-from prisma import Prisma
-from prisma.models import Items
+from .prisma import Prisma
+from .prisma.models import Items
 import os 
 
 print("INITTING PRISMA")
