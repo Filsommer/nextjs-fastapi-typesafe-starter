@@ -7,10 +7,9 @@
     "next-dev": "next dev",
     "nodemon-dev": "npx nodemon --exec npm run generate-client",
     "dev": "concurrently \"npm run next-dev\" \"npm run nodemon-dev\" \"npm run fastAPI-dev\"",
-    "build": "next build",
+    "build": "mv api/query-engine-rhel-openssl-1.0.x api/prisma && next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "mv ../tasks/api/query-engine-rhel-openssl-1.0.x ../tasks/api/prisma",
     "generate-client": "npx openapi --input ./api/openapi.json --output ./openAPI --client fetch --request ./service/request.ts"
   },
   "dependencies": {
