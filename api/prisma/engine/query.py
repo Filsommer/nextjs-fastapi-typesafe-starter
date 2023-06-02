@@ -117,17 +117,19 @@ class QueryEngine(HTTPEngine):
 
     async def connect(
         self,
+        is_production = False,
         timeout: int = 10,
         datasources: Optional[List[DatasourceOverride]] = None,
     ) -> None:
         log.debug('Connecting to query engine')
         if self.process is not None:
-            return
-            #raise errors.AlreadyConnectedError('Already connected to the query engine')
+            raise errors.AlreadyConnectedError('Already connected to the query engine')
 
         start = time.monotonic()
-        #self.file = file = self._ensure_file()
-        self.file = file =  Path("./api/prisma/query-engine-rhel-openssl-1.0.x")
+        if is_production:
+            self.file = file =  Path("./api/query-engine-rhel-openssl-1.0.x")
+        else:
+            self.file = file = self._ensure_file()
 
         try:
             await self.spawn(file, timeout=timeout, datasources=datasources)

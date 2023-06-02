@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "fastAPI-dev": "cd api && python3 -m uvicorn index:app --port 8000 --reload",
+    "fastAPI-dev": "cd api/ && python3 -m pip install -r requirements.txt && python3 -m prisma generate && cd .. && DEBUG=1 python3 -m uvicorn api.index:app --port 8000 --reload",
     "next-dev": "next dev",
     "nodemon-dev": "npx nodemon --exec npm run generate-client",
     "dev": "concurrently \"npm run next-dev\" \"npm run nodemon-dev\" \"npm run fastAPI-dev\"",

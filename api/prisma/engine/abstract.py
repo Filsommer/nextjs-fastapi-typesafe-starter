@@ -84,6 +84,7 @@ class AbstractEngine(ABC):
     @abstractmethod
     async def connect(
         self,
+        is_production = False,
         timeout: int = 10,
         datasources: Optional[List[DatasourceOverride]] = None,
     ) -> None:

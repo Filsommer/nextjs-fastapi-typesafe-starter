@@ -6,9 +6,9 @@ from typing import Union, List
 from fastapi.middleware.cors import CORSMiddleware
 import json
 from anyio.streams.file import FileWriteStream
+import os
 from .prisma import Prisma
-from .prisma.models import Items
-import os 
+from .prisma.models import Item, ItemCreator
 
 print("INITTING PRISMA")
 
@@ -23,7 +23,7 @@ def custom_generate_unique_id(route: APIRoute):
 
 app = FastAPI(generate_unique_id_function=custom_generate_unique_id)
 prisma = Prisma()
-
+is_production = os.getenv("DEBUG") != "1"
 # TODO handle CORS, see: https://fastapi.tiangolo.com/tutorial/cors/
 origins = ["*"]
 app.add_middleware(
@@ -37,46 +37,49 @@ app.add_middleware(
 class ResponseMessage(BaseModel):
     message: str
 
-# @app.on_event("startup")
-# async def startup():
-#     await prisma.connect()
-#     print("STARTUP FASTAPI")
-#     # write openapi objects to file on startup
-#     async with await FileWriteStream.from_path("./openapi.json") as stream:
-#         jsonData = jsonable_encoder(app.openapi())
-#         for path_data in jsonData["paths"].values():
-#             for operation in path_data.values():
-#                 operation_id = operation["operationId"]
-#                 new_operation_id = operation_id.split("-")[1]
-#                 operation["operationId"] = new_operation_id
-#         await stream.send(json.dumps(jsonData).encode("utf-8"))
 
-# class Items(BaseModel):
-#     """Represents a Items record"""
-#     id: str    
-#     created_at: str
-#     name: str     
-#     price: int
+@app.on_event("startup")
+async def startup():
+    await prisma.connect(is_production)
+    print("STARTUP FASTAPI")
+    # write openapi objects to file on startup
+    async with await FileWriteStream.from_path("./api/openapi.json") as stream:
+        jsonData = jsonable_encoder(app.openapi())
+        for path_data in jsonData["paths"].values():
+            for operation in path_data.values():
+                operation_id = operation["operationId"]
+                new_operation_id = operation_id.split("-")[1]
+                operation["operationId"] = new_operation_id
+        await stream.send(json.dumps(jsonData).encode("utf-8"))
+
+@app.on_event("shutdown")
+async def shutdown():
+    await prisma.disconnect()
+    print("SHUTDOWN FASTAPI")
 
 @app.middleware("https")
 async def middleware_ep(request: Request, call_next):
-    await prisma.connect()
-    response = await call_next(request)
-    await prisma.disconnect()
+    if not is_production:
+        response = await call_next(request)
+    else:  # endpoints are lambdas on vercel, so we need to instantiate prisma on every request :(
+        await prisma.connect()
+        response = await call_next(request)
+        await prisma.disconnect()
+        response = await call_next(request)
     return response
 
+
 @app.post("/api/items", response_model=ResponseMessage, tags=["items"])
-async def create_item():
-    # await prisma.connect()
-    #json_compatible_data = jsonable_encoder({ "name": "item3", "price": 5 }, exclude_none=True)
-    await prisma.items.create({ "name": "item3", "price": 5 })
+async def create_item(item: ItemCreator):
+    json_compatible_data = jsonable_encoder(item, exclude_none=True)
+    await prisma.item.create(json_compatible_data)
     return {"message": "item inserted"}
 
 
-@app.get("/api/items", response_model=list[Items], tags=["items"])
+@app.get("/api/items", response_model=list[Item], tags=["items"])
 async def get_items():
     items = []
-    items: List[Items] = await prisma.items.find_many()
+    items: List[Item] = await prisma.item.find_many()
     # write your queries here
     return items
 

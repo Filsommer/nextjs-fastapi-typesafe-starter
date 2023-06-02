@@ -52,7 +52,7 @@ if TYPE_CHECKING:
 _PrismaModelT = TypeVar('_PrismaModelT', bound='_PrismaModel')
 
 
-class ItemsActions(Generic[_PrismaModelT]):
+class ItemActions(Generic[_PrismaModelT]):
     __slots__ = (
         '_client',
         '_model',
@@ -79,7 +79,7 @@ class ItemsActions(Generic[_PrismaModelT]):
 
         Returns
         -------
-        List[prisma.models.Items]
+        List[prisma.models.Item]
             The records returned by the SQL query
 
         Raises
@@ -92,8 +92,8 @@ class ItemsActions(Generic[_PrismaModelT]):
         Example
         -------
         ```py
-        users = await Items.prisma().query_raw(
-            'SELECT * FROM Items WHERE id = $1',
+        users = await Item.prisma().query_raw(
+            'SELECT * FROM Item WHERE id = $1',
             'bbadfchfja',
         )
         ```
@@ -117,7 +117,7 @@ class ItemsActions(Generic[_PrismaModelT]):
 
         Returns
         -------
-        prisma.models.Items
+        prisma.models.Item
             The first record returned by the SQL query
         None
             The raw SQL query did not return any records
@@ -132,8 +132,8 @@ class ItemsActions(Generic[_PrismaModelT]):
         Example
         -------
         ```py
-        user = await Items.prisma().query_first(
-            'SELECT * FROM Items WHERE created_at = $1',
+        user = await Item.prisma().query_first(
+            'SELECT * FROM Item WHERE created_at = $1',
             datetime.datetime.utcnow(),
         )
         ```
@@ -142,22 +142,22 @@ class ItemsActions(Generic[_PrismaModelT]):
 
     async def create(
         self,
-        data: types.ItemsCreateInput,
-        include: Optional[types.ItemsInclude] = None
+        data: types.ItemCreateInput,
+        include: Optional[types.ItemInclude] = None
     ) -> _PrismaModelT:
-        """Create a new Items record.
+        """Create a new Item record.
 
         Parameters
         ----------
         data
-            Items record data
+            Item record data
         include
-            Specifies which relations should be loaded on the returned Items model
+            Specifies which relations should be loaded on the returned Item model
 
         Returns
         -------
-        prisma.models.Items
-            The created Items record
+        prisma.models.Item
+            The created Item record
 
         Raises
         ------
@@ -169,10 +169,10 @@ class ItemsActions(Generic[_PrismaModelT]):
         Example
         -------
         ```py
-        # create a Items record from just the required fields
-        items = await Items.prisma().create(
+        # create a Item record from just the required fields
+        item = await Item.prisma().create(
             data={
-                # data to create a Items record
+                # data to create a Item record
                 'name': 'dhheabfhf',
                 'price': 7953889008,
             },
@@ -191,18 +191,18 @@ class ItemsActions(Generic[_PrismaModelT]):
 
     async def create_many(
         self,
-        data: List[types.ItemsCreateWithoutRelationsInput],
+        data: List[types.ItemCreateWithoutRelationsInput],
         *,
         skip_duplicates: Optional[bool] = None,
     ) -> int:
-        """Create multiple Items records at once.
+        """Create multiple Item records at once.
 
         This function is *not* available when using SQLite.
 
         Parameters
         ----------
         data
-            List of Items record data
+            List of Item record data
         skip_duplicates
             Boolean flag for ignoring unique constraint errors
 
@@ -225,15 +225,15 @@ class ItemsActions(Generic[_PrismaModelT]):
         Example
         -------
         ```py
-        total = await Items.prisma().create_many(
+        total = await Item.prisma().create_many(
             data=[
                 {
-                    # data to create a Items record
+                    # data to create a Item record
                     'name': 'bbehjachib',
                     'price': 24420185688,
                 },
                 {
-                    # data to create a Items record
+                    # data to create a Item record
                     'name': 'dgiiaaijj',
                     'price': 18096359424,
                 },
@@ -258,22 +258,22 @@ class ItemsActions(Generic[_PrismaModelT]):
 
     async def delete(
         self,
-        where: types.ItemsWhereUniqueInput,
-        include: Optional[types.ItemsInclude] = None
+        where: types.ItemWhereUniqueInput,
+        include: Optional[types.ItemInclude] = None
     ) -> Optional[_PrismaModelT]:
-        """Delete a single Items record.
+        """Delete a single Item record.
 
         Parameters
         ----------
         where
-            Items filter to select the record to be deleted, must be unique
+            Item filter to select the record to be deleted, must be unique
         include
-            Specifies which relations should be loaded on the returned Items model
+            Specifies which relations should be loaded on the returned Item model
 
         Returns
         -------
-        prisma.models.Items
-            The deleted Items record
+        prisma.models.Item
+            The deleted Item record
         None
             Could not find a record to delete
 
@@ -287,7 +287,7 @@ class ItemsActions(Generic[_PrismaModelT]):
         Example
         -------
         ```py
-        items = await Items.prisma().delete(
+        item = await Item.prisma().delete(
             where={
                 'id': 'eigcfgbif',
             },
@@ -310,22 +310,22 @@ class ItemsActions(Generic[_PrismaModelT]):
 
     async def find_unique(
         self,
-        where: types.ItemsWhereUniqueInput,
-        include: Optional[types.ItemsInclude] = None
+        where: types.ItemWhereUniqueInput,
+        include: Optional[types.ItemInclude] = None
     ) -> Optional[_PrismaModelT]:
-        """Find a unique Items record.
+        """Find a unique Item record.
 
         Parameters
         ----------
         where
-            Items filter to find the record, must be unique
+            Item filter to find the record, must be unique
         include
-            Specifies which relations should be loaded on the returned Items model
+            Specifies which relations should be loaded on the returned Item model
 
         Returns
         -------
-        prisma.models.Items
-            The found Items record
+        prisma.models.Item
+            The found Item record
         None
             No record matching the given input could be found
 
@@ -339,7 +339,7 @@ class ItemsActions(Generic[_PrismaModelT]):
         Example
         -------
         ```py
-        items = await Items.prisma().find_unique(
+        item = await Item.prisma().find_unique(
             where={
                 'id': 'bagcfbhiig',
             },
@@ -361,22 +361,22 @@ class ItemsActions(Generic[_PrismaModelT]):
 
     async def find_unique_or_raise(
         self,
-        where: types.ItemsWhereUniqueInput,
-        include: Optional[types.ItemsInclude] = None
+        where: types.ItemWhereUniqueInput,
+        include: Optional[types.ItemInclude] = None
     ) -> _PrismaModelT:
-        """Find a unique Items record. Raises `RecordNotFoundError` if no record is found.
+        """Find a unique Item record. Raises `RecordNotFoundError` if no record is found.
 
         Parameters
         ----------
         where
-            Items filter to find the record, must be unique
+            Item filter to find the record, must be unique
         include
-            Specifies which relations should be loaded on the returned Items model
+            Specifies which relations should be loaded on the returned Item model
 
         Returns
         -------
-        prisma.models.Items
-            The found Items record
+        prisma.models.Item
+            The found Item record
 
         Raises
         ------
@@ -390,7 +390,7 @@ class ItemsActions(Generic[_PrismaModelT]):
         Example
         -------
         ```py
-        items = await Items.prisma().find_unique_or_raise(
+        item = await Item.prisma().find_unique_or_raise(
             where={
                 'id': 'cghideieh',
             },
@@ -411,37 +411,37 @@ class ItemsActions(Generic[_PrismaModelT]):
         self,
         take: Optional[int] = None,
         skip: Optional[int] = None,
-        where: Optional[types.ItemsWhereInput] = None,
-        cursor: Optional[types.ItemsWhereUniqueInput] = None,
-        include: Optional[types.ItemsInclude] = None,
-        order: Optional[Union[types.ItemsOrderByInput, List[types.ItemsOrderByInput]]] = None,
-        distinct: Optional[List[types.ItemsScalarFieldKeys]] = None,
+        where: Optional[types.ItemWhereInput] = None,
+        cursor: Optional[types.ItemWhereUniqueInput] = None,
+        include: Optional[types.ItemInclude] = None,
+        order: Optional[Union[types.ItemOrderByInput, List[types.ItemOrderByInput]]] = None,
+        distinct: Optional[List[types.ItemScalarFieldKeys]] = None,
     ) -> List[_PrismaModelT]:
-        """Find multiple Items records.
+        """Find multiple Item records.
 
         An empty list is returned if no records could be found.
 
         Parameters
         ----------
         take
-            Limit the maximum number of Items records returned
+            Limit the maximum number of Item records returned
         skip
             Ignore the first N results
         where
-            Items filter to select records
+            Item filter to select records
         cursor
             Specifies the position in the list to start returning results from, (typically an ID field)
         include
-            Specifies which relations should be loaded on the returned Items model
+            Specifies which relations should be loaded on the returned Item model
         order
-            Order the returned Items records by any field
+            Order the returned Item records by any field
         distinct
-            Filter Items records by either a single distinct field or distinct combinations of fields
+            Filter Item records by either a single distinct field or distinct combinations of fields
 
         Returns
         -------
-        List[prisma.models.Items]
-            The list of all Items records that could be found
+        List[prisma.models.Item]
+            The list of all Item records that could be found
 
         Raises
         ------
@@ -451,11 +451,11 @@ class ItemsActions(Generic[_PrismaModelT]):
         Example
         -------
         ```py
-        # find the first 10 Items records
-        items = await Items.prisma().find_many(take=10)
+        # find the first 10 Item records
+        items = await Item.prisma().find_many(take=10)
 
-        # find the first 5 Items records ordered by the name field
-        items = await Items.prisma().find_many(
+        # find the first 5 Item records ordered by the name field
+        items = await Item.prisma().find_many(
             take=5,
             order={
                 'name': 'desc',
@@ -481,33 +481,33 @@ class ItemsActions(Generic[_PrismaModelT]):
     async def find_first(
         self,
         skip: Optional[int] = None,
-        where: Optional[types.ItemsWhereInput] = None,
-        cursor: Optional[types.ItemsWhereUniqueInput] = None,
-        include: Optional[types.ItemsInclude] = None,
-        order: Optional[Union[types.ItemsOrderByInput, List[types.ItemsOrderByInput]]] = None,
-        distinct: Optional[List[types.ItemsScalarFieldKeys]] = None,
+        where: Optional[types.ItemWhereInput] = None,
+        cursor: Optional[types.ItemWhereUniqueInput] = None,
+        include: Optional[types.ItemInclude] = None,
+        order: Optional[Union[types.ItemOrderByInput, List[types.ItemOrderByInput]]] = None,
+        distinct: Optional[List[types.ItemScalarFieldKeys]] = None,
     ) -> Optional[_PrismaModelT]:
-        """Find a single Items record.
+        """Find a single Item record.
 
         Parameters
         ----------
         skip
             Ignore the first N records
         where
-            Items filter to select the record
+            Item filter to select the record
         cursor
             Specifies the position in the list to start returning results from, (typically an ID field)
         include
-            Specifies which relations should be loaded on the returned Items model
+            Specifies which relations should be loaded on the returned Item model
         order
-            Order the returned Items records by any field
+            Order the returned Item records by any field
         distinct
-            Filter Items records by either a single distinct field or distinct combinations of fields
+            Filter Item records by either a single distinct field or distinct combinations of fields
 
         Returns
         -------
-        prisma.models.Items
-            The first Items record found, matching the given arguments
+        prisma.models.Item
+            The first Item record found, matching the given arguments
         None
             No record could be found
 
@@ -519,8 +519,8 @@ class ItemsActions(Generic[_PrismaModelT]):
         Example
         -------
         ```py
-        # find the second Items record ordered by the price field
-        items = await Items.prisma().find_first(
+        # find the second Item record ordered by the price field
+        item = await Item.prisma().find_first(
             skip=1,
             order={
                 'price': 'desc',
@@ -548,33 +548,33 @@ class ItemsActions(Generic[_PrismaModelT]):
     async def find_first_or_raise(
         self,
         skip: Optional[int] = None,
-        where: Optional[types.ItemsWhereInput] = None,
-        cursor: Optional[types.ItemsWhereUniqueInput] = None,
-        include: Optional[types.ItemsInclude] = None,
-        order: Optional[Union[types.ItemsOrderByInput, List[types.ItemsOrderByInput]]] = None,
-        distinct: Optional[List[types.ItemsScalarFieldKeys]] = None,
+        where: Optional[types.ItemWhereInput] = None,
+        cursor: Optional[types.ItemWhereUniqueInput] = None,
+        include: Optional[types.ItemInclude] = None,
+        order: Optional[Union[types.ItemOrderByInput, List[types.ItemOrderByInput]]] = None,
+        distinct: Optional[List[types.ItemScalarFieldKeys]] = None,
     ) -> _PrismaModelT:
-        """Find a single Items record. Raises `RecordNotFoundError` if no record was found.
+        """Find a single Item record. Raises `RecordNotFoundError` if no record was found.
 
         Parameters
         ----------
         skip
             Ignore the first N records
         where
-            Items filter to select the record
+            Item filter to select the record
         cursor
             Specifies the position in the list to start returning results from, (typically an ID field)
         include
-            Specifies which relations should be loaded on the returned Items model
+            Specifies which relations should be loaded on the returned Item model
         order
-            Order the returned Items records by any field
+            Order the returned Item records by any field
         distinct
-            Filter Items records by either a single distinct field or distinct combinations of fields
+            Filter Item records by either a single distinct field or distinct combinations of fields
 
         Returns
         -------
-        prisma.models.Items
-            The first Items record found, matching the given arguments
+        prisma.models.Item
+            The first Item record found, matching the given arguments
 
         Raises
         ------
@@ -586,8 +586,8 @@ class ItemsActions(Generic[_PrismaModelT]):
         Example
         -------
         ```py
-        # find the second Items record ordered by the id field
-        items = await Items.prisma().find_first_or_raise(
+        # find the second Item record ordered by the id field
+        item = await Item.prisma().find_first_or_raise(
             skip=1,
             order={
                 'id': 'desc',
@@ -611,25 +611,25 @@ class ItemsActions(Generic[_PrismaModelT]):
 
     async def update(
         self,
-        data: types.ItemsUpdateInput,
-        where: types.ItemsWhereUniqueInput,
-        include: Optional[types.ItemsInclude] = None
+        data: types.ItemUpdateInput,
+        where: types.ItemWhereUniqueInput,
+        include: Optional[types.ItemInclude] = None
     ) -> Optional[_PrismaModelT]:
-        """Update a single Items record.
+        """Update a single Item record.
 
         Parameters
         ----------
         data
-            Items record data specifying what to update
+            Item record data specifying what to update
         where
-            Items filter to select the unique record to create / update
+            Item filter to select the unique record to create / update
         include
-            Specifies which relations should be loaded on the returned Items model
+            Specifies which relations should be loaded on the returned Item model
 
         Returns
         -------
-        prisma.models.Items
-            The updated Items record
+        prisma.models.Item
+            The updated Item record
         None
             No record could be found
 
@@ -641,12 +641,12 @@ class ItemsActions(Generic[_PrismaModelT]):
         Example
         -------
         ```py
-        items = await Items.prisma().update(
+        item = await Item.prisma().update(
             where={
                 'id': 'biabhbdai',
             },
             data={
-                # data to update the Items record to
+                # data to update the Item record to
             },
         )
         ```
@@ -668,25 +668,25 @@ class ItemsActions(Generic[_PrismaModelT]):
 
     async def upsert(
         self,
-        where: types.ItemsWhereUniqueInput,
-        data: types.ItemsUpsertInput,
-        include: Optional[types.ItemsInclude] = None,
+        where: types.ItemWhereUniqueInput,
+        data: types.ItemUpsertInput,
+        include: Optional[types.ItemInclude] = None,
     ) -> _PrismaModelT:
         """Updates an existing record or create a new one
 
         Parameters
         ----------
         where
-            Items filter to select the unique record to create / update
+            Item filter to select the unique record to create / update
         data
             Data specifying what fields to set on create and update
         include
-            Specifies which relations should be loaded on the returned Items model
+            Specifies which relations should be loaded on the returned Item model
 
         Returns
         -------
-        prisma.models.Items
-            The created or updated Items record
+        prisma.models.Item
+            The created or updated Item record
 
         Raises
         ------
@@ -698,7 +698,7 @@ class ItemsActions(Generic[_PrismaModelT]):
         Example
         -------
         ```py
-        items = await Items.prisma().upsert(
+        item = await Item.prisma().upsert(
             where={
                 'id': 'idghgaicb',
             },
@@ -730,22 +730,22 @@ class ItemsActions(Generic[_PrismaModelT]):
 
     async def update_many(
         self,
-        data: types.ItemsUpdateManyMutationInput,
-        where: types.ItemsWhereInput,
+        data: types.ItemUpdateManyMutationInput,
+        where: types.ItemWhereInput,
     ) -> int:
-        """Update multiple Items records
+        """Update multiple Item records
 
         Parameters
         ----------
         data
-            Items data to update the selected Items records to
+            Item data to update the selected Item records to
         where
-            Filter to select the Items records to update
+            Filter to select the Item records to update
 
         Returns
         -------
         int
-            The total number of Items records that were updated
+            The total number of Item records that were updated
 
         Raises
         ------
@@ -755,8 +755,8 @@ class ItemsActions(Generic[_PrismaModelT]):
         Example
         -------
         ```py
-        # update all Items records
-        total = await Items.prisma().update_many(
+        # update all Item records
+        total = await Item.prisma().update_many(
             data={
                 'created_at': datetime.datetime.utcnow()
             },
@@ -778,21 +778,21 @@ class ItemsActions(Generic[_PrismaModelT]):
         select: None = None,
         take: Optional[int] = None,
         skip: Optional[int] = None,
-        where: Optional[types.ItemsWhereInput] = None,
-        cursor: Optional[types.ItemsWhereUniqueInput] = None,
+        where: Optional[types.ItemWhereInput] = None,
+        cursor: Optional[types.ItemWhereUniqueInput] = None,
     ) -> int:
-        """Count the number of Items records present in the database
+        """Count the number of Item records present in the database
 
         Parameters
         ----------
         select
-            Select the Items fields to be counted
+            Select the Item fields to be counted
         take
             Limit the maximum result
         skip
             Ignore the first N records
         where
-            Items filter to find records
+            Item filter to find records
         cursor
             Specifies the position in the list to start counting results from, (typically an ID field)
         order
@@ -803,7 +803,7 @@ class ItemsActions(Generic[_PrismaModelT]):
         int
             The total number of records found, returned if `select` is not given
 
-        prisma.types.ItemsCountAggregateOutput
+        prisma.types.ItemCountAggregateOutput
             Data returned when `select` is used, the fields present in this dictionary will
             match the fields passed in the `select` argument
 
@@ -816,10 +816,10 @@ class ItemsActions(Generic[_PrismaModelT]):
         -------
         ```py
         # total: int
-        total = await Items.prisma().count()
+        total = await Item.prisma().count()
 
-        # results: prisma.types.ItemsCountAggregateOutput
-        results = await Items.prisma().count(
+        # results: prisma.types.ItemCountAggregateOutput
+        results = await Item.prisma().count(
             select={
                 '_all': True,
                 'name': True,
@@ -832,34 +832,34 @@ class ItemsActions(Generic[_PrismaModelT]):
     @overload
     async def count(
         self,
-        select: types.ItemsCountAggregateInput,
+        select: types.ItemCountAggregateInput,
         take: Optional[int] = None,
         skip: Optional[int] = None,
-        where: Optional[types.ItemsWhereInput] = None,
-        cursor: Optional[types.ItemsWhereUniqueInput] = None,
-    ) -> types.ItemsCountAggregateOutput:
+        where: Optional[types.ItemWhereInput] = None,
+        cursor: Optional[types.ItemWhereUniqueInput] = None,
+    ) -> types.ItemCountAggregateOutput:
         ...
 
     async def count(
         self,
-        select: Optional[types.ItemsCountAggregateInput] = None,
+        select: Optional[types.ItemCountAggregateInput] = None,
         take: Optional[int] = None,
         skip: Optional[int] = None,
-        where: Optional[types.ItemsWhereInput] = None,
-        cursor: Optional[types.ItemsWhereUniqueInput] = None,
-    ) -> Union[int, types.ItemsCountAggregateOutput]:
-        """Count the number of Items records present in the database
+        where: Optional[types.ItemWhereInput] = None,
+        cursor: Optional[types.ItemWhereUniqueInput] = None,
+    ) -> Union[int, types.ItemCountAggregateOutput]:
+        """Count the number of Item records present in the database
 
         Parameters
         ----------
         select
-            Select the Items fields to be counted
+            Select the Item fields to be counted
         take
             Limit the maximum result
         skip
             Ignore the first N records
         where
-            Items filter to find records
+            Item filter to find records
         cursor
             Specifies the position in the list to start counting results from, (typically an ID field)
         order
@@ -870,7 +870,7 @@ class ItemsActions(Generic[_PrismaModelT]):
         int
             The total number of records found, returned if `select` is not given
 
-        prisma.types.ItemsCountAggregateOutput
+        prisma.types.ItemCountAggregateOutput
             Data returned when `select` is used, the fields present in this dictionary will
             match the fields passed in the `select` argument
 
@@ -883,10 +883,10 @@ class ItemsActions(Generic[_PrismaModelT]):
         -------
         ```py
         # total: int
-        total = await Items.prisma().count()
+        total = await Item.prisma().count()
 
-        # results: prisma.types.ItemsCountAggregateOutput
-        results = await Items.prisma().count(
+        # results: prisma.types.ItemCountAggregateOutput
+        results = await Item.prisma().count(
             select={
                 '_all': True,
                 'price': True,
@@ -923,23 +923,23 @@ class ItemsActions(Generic[_PrismaModelT]):
         if select is None:
             return cast(int, resp['data']['result']['_count']['_all'])
         else:
-            return cast(types.ItemsCountAggregateOutput, resp['data']['result']['_count'])
+            return cast(types.ItemCountAggregateOutput, resp['data']['result']['_count'])
 
     async def delete_many(
         self,
-        where: Optional[types.ItemsWhereInput] = None
+        where: Optional[types.ItemWhereInput] = None
     ) -> int:
-        """Delete multiple Items records.
+        """Delete multiple Item records.
 
         Parameters
         ----------
         where
-            Optional Items filter to find the records to be deleted
+            Optional Item filter to find the records to be deleted
 
         Returns
         -------
         int
-            The total number of Items records that were deleted
+            The total number of Item records that were deleted
 
         Raises
         ------
@@ -949,8 +949,8 @@ class ItemsActions(Generic[_PrismaModelT]):
         Example
         -------
         ```py
-        # delete all Items records
-        total = await Items.prisma().delete_many()
+        # delete all Item records
+        total = await Item.prisma().delete_many()
         ```
         """
         resp = await self._client._execute(
@@ -967,30 +967,30 @@ class ItemsActions(Generic[_PrismaModelT]):
     # TODO: statically type that the order argument is required when take or skip are present
     async def group_by(
         self,
-        by: List['types.ItemsScalarFieldKeys'],
+        by: List['types.ItemScalarFieldKeys'],
         *,
-        where: Optional['types.ItemsWhereInput'] = None,
+        where: Optional['types.ItemWhereInput'] = None,
         take: Optional[int] = None,
         skip: Optional[int] = None,
-        avg: Optional['types.ItemsAvgAggregateInput'] = None,
-        sum: Optional['types.ItemsSumAggregateInput'] = None,
-        min: Optional['types.ItemsMinAggregateInput'] = None,
-        max: Optional['types.ItemsMaxAggregateInput'] = None,
-        having: Optional['types.ItemsScalarWhereWithAggregatesInput'] = None,
-        count: Optional[Union[bool, 'types.ItemsCountAggregateInput']] = None,
-        order: Optional[Union[Mapping['types.ItemsScalarFieldKeys', 'types.SortOrder'], List[Mapping['types.ItemsScalarFieldKeys', 'types.SortOrder']]]] = None,
-    ) -> List['types.ItemsGroupByOutput']:
-        """Group Items records by one or more field values and perform aggregations
+        avg: Optional['types.ItemAvgAggregateInput'] = None,
+        sum: Optional['types.ItemSumAggregateInput'] = None,
+        min: Optional['types.ItemMinAggregateInput'] = None,
+        max: Optional['types.ItemMaxAggregateInput'] = None,
+        having: Optional['types.ItemScalarWhereWithAggregatesInput'] = None,
+        count: Optional[Union[bool, 'types.ItemCountAggregateInput']] = None,
+        order: Optional[Union[Mapping['types.ItemScalarFieldKeys', 'types.SortOrder'], List[Mapping['types.ItemScalarFieldKeys', 'types.SortOrder']]]] = None,
+    ) -> List['types.ItemGroupByOutput']:
+        """Group Item records by one or more field values and perform aggregations
         each group such as finding the average.
 
         Parameters
         ----------
         by
-            List of scalar Items fields to group records by
+            List of scalar Item fields to group records by
         where
-            Items filter to select records
+            Item filter to select records
         take
-            Limit the maximum number of Items records returned
+            Limit the maximum number of Item records returned
         skip
             Ignore the first N records
         avg
@@ -1016,8 +1016,8 @@ class ItemsActions(Generic[_PrismaModelT]):
 
         Returns
         -------
-        List[prisma.types.ItemsGroupByOutput]
-            A list of dictionaries representing the Items record,
+        List[prisma.types.ItemGroupByOutput]
+            A list of dictionaries representing the Item record,
             this will also have additional fields present if aggregation arguments
             are used (see the above parameters)
 
@@ -1029,9 +1029,9 @@ class ItemsActions(Generic[_PrismaModelT]):
         Example
         -------
         ```py
-        # group Items records by id values
+        # group Item records by id values
         # and count how many records are in each group
-        results = await Items.prisma().group_by(
+        results = await Item.prisma().group_by(
             ['id'],
             count=True,
         )

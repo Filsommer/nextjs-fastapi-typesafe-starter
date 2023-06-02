@@ -3,10 +3,10 @@
 /* eslint-disable */
 
 /**
- * Represents a Items record
+ * Represents a Item record
  */
-export type Items = {
-    id?: string;
+export type Item = {
+    id: string;
     created_at?: string;
     name: string;
     price: number;

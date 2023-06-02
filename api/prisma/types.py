@@ -1150,16 +1150,16 @@ DecimalListUpdate = Union[
 ]
 
 
-# Items types
+# Item types
 
-class ItemsOptionalCreateInput(TypedDict, total=False):
-    """Optional arguments to the Items create method"""
+class ItemOptionalCreateInput(TypedDict, total=False):
+    """Optional arguments to the Item create method"""
     id: _str
     created_at: Optional[datetime.datetime]
 
 
-class ItemsCreateInput(ItemsOptionalCreateInput):
-    """Required arguments to the Items create method"""
+class ItemCreateInput(ItemOptionalCreateInput):
+    """Required arguments to the Item create method"""
     name: _str
     price: _int
 
@@ -1167,40 +1167,40 @@ class ItemsCreateInput(ItemsOptionalCreateInput):
 # TODO: remove this in favour of without explicit relations
 # e.g. PostCreateWithoutAuthorInput
 
-class ItemsOptionalCreateWithoutRelationsInput(TypedDict, total=False):
-    """Optional arguments to the Items create method, without relations"""
+class ItemOptionalCreateWithoutRelationsInput(TypedDict, total=False):
+    """Optional arguments to the Item create method, without relations"""
     id: _str
     created_at: Optional[datetime.datetime]
 
 
-class ItemsCreateWithoutRelationsInput(ItemsOptionalCreateWithoutRelationsInput):
-    """Required arguments to the Items create method, without relations"""
+class ItemCreateWithoutRelationsInput(ItemOptionalCreateWithoutRelationsInput):
+    """Required arguments to the Item create method, without relations"""
     name: _str
     price: _int
 
 
-class ItemsCreateNestedWithoutRelationsInput(TypedDict, total=False):
-    create: 'ItemsCreateWithoutRelationsInput'
-    connect: 'ItemsWhereUniqueInput'
+class ItemCreateNestedWithoutRelationsInput(TypedDict, total=False):
+    create: 'ItemCreateWithoutRelationsInput'
+    connect: 'ItemWhereUniqueInput'
 
 
-class ItemsCreateManyNestedWithoutRelationsInput(TypedDict, total=False):
-    create: Union['ItemsCreateWithoutRelationsInput', List['ItemsCreateWithoutRelationsInput']]
-    connect: Union['ItemsWhereUniqueInput', List['ItemsWhereUniqueInput']]
+class ItemCreateManyNestedWithoutRelationsInput(TypedDict, total=False):
+    create: Union['ItemCreateWithoutRelationsInput', List['ItemCreateWithoutRelationsInput']]
+    connect: Union['ItemWhereUniqueInput', List['ItemWhereUniqueInput']]
 
 
-_ItemsWhereUnique_id_Input = TypedDict(
-    '_ItemsWhereUnique_id_Input',
+_ItemWhereUnique_id_Input = TypedDict(
+    '_ItemWhereUnique_id_Input',
     {
         'id': '_str',
     },
     total=True
 )
 
-ItemsWhereUniqueInput = _ItemsWhereUnique_id_Input
+ItemWhereUniqueInput = _ItemWhereUnique_id_Input
 
 
-class ItemsUpdateInput(TypedDict, total=False):
+class ItemUpdateInput(TypedDict, total=False):
     """Optional arguments for updating a record"""
     id: _str
     created_at: Optional[datetime.datetime]
@@ -1208,7 +1208,7 @@ class ItemsUpdateInput(TypedDict, total=False):
     price: Union[AtomicBigIntInput, _int]
 
 
-class ItemsUpdateManyMutationInput(TypedDict, total=False):
+class ItemUpdateManyMutationInput(TypedDict, total=False):
     """Arguments for updating many records"""
     id: _str
     created_at: Optional[datetime.datetime]
@@ -1216,80 +1216,80 @@ class ItemsUpdateManyMutationInput(TypedDict, total=False):
     price: Union[AtomicBigIntInput, _int]
 
 
-class ItemsUpdateManyWithoutRelationsInput(TypedDict, total=False):
-    create: List['ItemsCreateWithoutRelationsInput']
-    connect: List['ItemsWhereUniqueInput']
-    set: List['ItemsWhereUniqueInput']
-    disconnect: List['ItemsWhereUniqueInput']
-    delete: List['ItemsWhereUniqueInput']
+class ItemUpdateManyWithoutRelationsInput(TypedDict, total=False):
+    create: List['ItemCreateWithoutRelationsInput']
+    connect: List['ItemWhereUniqueInput']
+    set: List['ItemWhereUniqueInput']
+    disconnect: List['ItemWhereUniqueInput']
+    delete: List['ItemWhereUniqueInput']
 
     # TODO
-    # update: List['ItemsUpdateWithWhereUniqueWithoutRelationsInput']
-    # updateMany: List['ItemsUpdateManyWithWhereUniqueWithoutRelationsInput']
-    # deleteMany: List['ItemsScalarWhereInput']
-    # upsert: List['ItemsUpserteWithWhereUniqueWithoutRelationsInput']
-    # connectOrCreate: List['ItemsCreateOrConnectWithoutRelationsInput']
+    # update: List['ItemUpdateWithWhereUniqueWithoutRelationsInput']
+    # updateMany: List['ItemUpdateManyWithWhereUniqueWithoutRelationsInput']
+    # deleteMany: List['ItemScalarWhereInput']
+    # upsert: List['ItemUpserteWithWhereUniqueWithoutRelationsInput']
+    # connectOrCreate: List['ItemCreateOrConnectWithoutRelationsInput']
 
 
-class ItemsUpdateOneWithoutRelationsInput(TypedDict, total=False):
-    create: 'ItemsCreateWithoutRelationsInput'
-    connect: 'ItemsWhereUniqueInput'
+class ItemUpdateOneWithoutRelationsInput(TypedDict, total=False):
+    create: 'ItemCreateWithoutRelationsInput'
+    connect: 'ItemWhereUniqueInput'
     disconnect: bool
     delete: bool
 
     # TODO
-    # update: 'ItemsUpdateInput'
-    # upsert: 'ItemsUpsertWithoutRelationsInput'
-    # connectOrCreate: 'ItemsCreateOrConnectWithoutRelationsInput'
+    # update: 'ItemUpdateInput'
+    # upsert: 'ItemUpsertWithoutRelationsInput'
+    # connectOrCreate: 'ItemCreateOrConnectWithoutRelationsInput'
 
 
-class ItemsUpsertInput(TypedDict):
-    create: 'ItemsCreateInput'
-    update: 'ItemsUpdateInput'  # pyright: ignore[reportIncompatibleMethodOverride]
+class ItemUpsertInput(TypedDict):
+    create: 'ItemCreateInput'
+    update: 'ItemUpdateInput'  # pyright: ignore[reportIncompatibleMethodOverride]
 
 
-_Items_id_OrderByInput = TypedDict(
-    '_Items_id_OrderByInput',
+_Item_id_OrderByInput = TypedDict(
+    '_Item_id_OrderByInput',
     {
         'id': 'SortOrder',
     },
     total=True
 )
 
-_Items_created_at_OrderByInput = TypedDict(
-    '_Items_created_at_OrderByInput',
+_Item_created_at_OrderByInput = TypedDict(
+    '_Item_created_at_OrderByInput',
     {
         'created_at': 'SortOrder',
     },
     total=True
 )
 
-_Items_name_OrderByInput = TypedDict(
-    '_Items_name_OrderByInput',
+_Item_name_OrderByInput = TypedDict(
+    '_Item_name_OrderByInput',
     {
         'name': 'SortOrder',
     },
     total=True
 )
 
-_Items_price_OrderByInput = TypedDict(
-    '_Items_price_OrderByInput',
+_Item_price_OrderByInput = TypedDict(
+    '_Item_price_OrderByInput',
     {
         'price': 'SortOrder',
     },
     total=True
 )
 
-ItemsOrderByInput = Union[
-    '_Items_id_OrderByInput',
-    '_Items_created_at_OrderByInput',
-    '_Items_name_OrderByInput',
-    '_Items_price_OrderByInput',
+ItemOrderByInput = Union[
+    '_Item_id_OrderByInput',
+    '_Item_created_at_OrderByInput',
+    '_Item_name_OrderByInput',
+    '_Item_price_OrderByInput',
 ]
 
 
 
-# recursive Items types
+# recursive Item types
 # TODO: cleanup these types
 
 
@@ -1297,8 +1297,8 @@ ItemsOrderByInput = Union[
 # see https://github.com/RobertCraigie/prisma-client-py/issues/45
 # switch to pyright for improved types, see https://prisma-client-py.readthedocs.io/en/stable/reference/limitations/
 
-ItemsRelationFilter = TypedDict(
-    'ItemsRelationFilter',
+ItemRelationFilter = TypedDict(
+    'ItemRelationFilter',
     {
         'is': 'Dict[str, Any]',
         'is_not': 'Dict[str, Any]',
@@ -1307,183 +1307,183 @@ ItemsRelationFilter = TypedDict(
 )
 
 
-class ItemsListRelationFilter(TypedDict, total=False):
+class ItemListRelationFilter(TypedDict, total=False):
     some: 'Dict[str, Any]'
     none: 'Dict[str, Any]'
     every: 'Dict[str, Any]'
 
 
-class ItemsInclude(TypedDict, total=False):
-    """Items relational arguments"""
+class ItemInclude(TypedDict, total=False):
+    """Item relational arguments"""
 
 
     
 
-class ItemsIncludeFromItems(TypedDict, total=False):
-    """Relational arguments for Items"""
+class ItemIncludeFromItem(TypedDict, total=False):
+    """Relational arguments for Item"""
 
 
-class ItemsIncludeFromItemsRecursive1(TypedDict, total=False):
-    """Relational arguments for Items"""
+class ItemIncludeFromItemRecursive1(TypedDict, total=False):
+    """Relational arguments for Item"""
 
 
-class ItemsIncludeFromItemsRecursive2(TypedDict, total=False):
-    """Relational arguments for Items"""
+class ItemIncludeFromItemRecursive2(TypedDict, total=False):
+    """Relational arguments for Item"""
 
 
-class ItemsIncludeFromItemsRecursive3(TypedDict, total=False):
-    """Relational arguments for Items"""
+class ItemIncludeFromItemRecursive3(TypedDict, total=False):
+    """Relational arguments for Item"""
 
 
-class ItemsIncludeFromItemsRecursive4(TypedDict, total=False):
-    """Relational arguments for Items"""
+class ItemIncludeFromItemRecursive4(TypedDict, total=False):
+    """Relational arguments for Item"""
 
     
 
-class ItemsArgsFromItems(TypedDict, total=False):
-    """Arguments for Items"""
-    include: 'ItemsIncludeFromItemsRecursive1'
+class ItemArgsFromItem(TypedDict, total=False):
+    """Arguments for Item"""
+    include: 'ItemIncludeFromItemRecursive1'
 
 
-class ItemsArgsFromItemsRecursive1(TypedDict, total=False):
-    """Arguments for Items"""
-    include: 'ItemsIncludeFromItemsRecursive2'
+class ItemArgsFromItemRecursive1(TypedDict, total=False):
+    """Arguments for Item"""
+    include: 'ItemIncludeFromItemRecursive2'
 
 
-class ItemsArgsFromItemsRecursive2(TypedDict, total=False):
-    """Arguments for Items"""
-    include: 'ItemsIncludeFromItemsRecursive3'
+class ItemArgsFromItemRecursive2(TypedDict, total=False):
+    """Arguments for Item"""
+    include: 'ItemIncludeFromItemRecursive3'
 
 
-class ItemsArgsFromItemsRecursive3(TypedDict, total=False):
-    """Arguments for Items"""
-    include: 'ItemsIncludeFromItemsRecursive4'
+class ItemArgsFromItemRecursive3(TypedDict, total=False):
+    """Arguments for Item"""
+    include: 'ItemIncludeFromItemRecursive4'
 
 
-class ItemsArgsFromItemsRecursive4(TypedDict, total=False):
-    """Arguments for Items"""
+class ItemArgsFromItemRecursive4(TypedDict, total=False):
+    """Arguments for Item"""
     
     
 
-class FindManyItemsArgsFromItems(TypedDict, total=False):
-    """Arguments for Items"""
+class FindManyItemArgsFromItem(TypedDict, total=False):
+    """Arguments for Item"""
     take: int
     skip: int
-    order_by: Union['ItemsOrderByInput', List['ItemsOrderByInput']]
-    where: 'ItemsWhereInput'
-    cursor: 'ItemsWhereUniqueInput'
-    distinct: List['ItemsScalarFieldKeys']
-    include: 'ItemsIncludeFromItemsRecursive1'
+    order_by: Union['ItemOrderByInput', List['ItemOrderByInput']]
+    where: 'ItemWhereInput'
+    cursor: 'ItemWhereUniqueInput'
+    distinct: List['ItemScalarFieldKeys']
+    include: 'ItemIncludeFromItemRecursive1'
 
 
-class FindManyItemsArgsFromItemsRecursive1(TypedDict, total=False):
-    """Arguments for Items"""
+class FindManyItemArgsFromItemRecursive1(TypedDict, total=False):
+    """Arguments for Item"""
     take: int
     skip: int
-    order_by: Union['ItemsOrderByInput', List['ItemsOrderByInput']]
-    where: 'ItemsWhereInput'
-    cursor: 'ItemsWhereUniqueInput'
-    distinct: List['ItemsScalarFieldKeys']
-    include: 'ItemsIncludeFromItemsRecursive2'
+    order_by: Union['ItemOrderByInput', List['ItemOrderByInput']]
+    where: 'ItemWhereInput'
+    cursor: 'ItemWhereUniqueInput'
+    distinct: List['ItemScalarFieldKeys']
+    include: 'ItemIncludeFromItemRecursive2'
 
 
-class FindManyItemsArgsFromItemsRecursive2(TypedDict, total=False):
-    """Arguments for Items"""
+class FindManyItemArgsFromItemRecursive2(TypedDict, total=False):
+    """Arguments for Item"""
     take: int
     skip: int
-    order_by: Union['ItemsOrderByInput', List['ItemsOrderByInput']]
-    where: 'ItemsWhereInput'
-    cursor: 'ItemsWhereUniqueInput'
-    distinct: List['ItemsScalarFieldKeys']
-    include: 'ItemsIncludeFromItemsRecursive3'
+    order_by: Union['ItemOrderByInput', List['ItemOrderByInput']]
+    where: 'ItemWhereInput'
+    cursor: 'ItemWhereUniqueInput'
+    distinct: List['ItemScalarFieldKeys']
+    include: 'ItemIncludeFromItemRecursive3'
 
 
-class FindManyItemsArgsFromItemsRecursive3(TypedDict, total=False):
-    """Arguments for Items"""
+class FindManyItemArgsFromItemRecursive3(TypedDict, total=False):
+    """Arguments for Item"""
     take: int
     skip: int
-    order_by: Union['ItemsOrderByInput', List['ItemsOrderByInput']]
-    where: 'ItemsWhereInput'
-    cursor: 'ItemsWhereUniqueInput'
-    distinct: List['ItemsScalarFieldKeys']
-    include: 'ItemsIncludeFromItemsRecursive4'
+    order_by: Union['ItemOrderByInput', List['ItemOrderByInput']]
+    where: 'ItemWhereInput'
+    cursor: 'ItemWhereUniqueInput'
+    distinct: List['ItemScalarFieldKeys']
+    include: 'ItemIncludeFromItemRecursive4'
 
 
-class FindManyItemsArgsFromItemsRecursive4(TypedDict, total=False):
-    """Arguments for Items"""
+class FindManyItemArgsFromItemRecursive4(TypedDict, total=False):
+    """Arguments for Item"""
     take: int
     skip: int
-    order_by: Union['ItemsOrderByInput', List['ItemsOrderByInput']]
-    where: 'ItemsWhereInput'
-    cursor: 'ItemsWhereUniqueInput'
-    distinct: List['ItemsScalarFieldKeys']
+    order_by: Union['ItemOrderByInput', List['ItemOrderByInput']]
+    where: 'ItemWhereInput'
+    cursor: 'ItemWhereUniqueInput'
+    distinct: List['ItemScalarFieldKeys']
     
 
 
-FindManyItemsArgs = FindManyItemsArgsFromItems
-FindFirstItemsArgs = FindManyItemsArgsFromItems
+FindManyItemArgs = FindManyItemArgsFromItem
+FindFirstItemArgs = FindManyItemArgsFromItem
 
 
     
 
-class ItemsWhereInput(TypedDict, total=False):
-    """Items arguments for searching"""
+class ItemWhereInput(TypedDict, total=False):
+    """Item arguments for searching"""
     id: Union[_str, 'types.StringFilter']
     created_at: Union[None, datetime.datetime, 'types.DateTimeFilter']
     name: Union[_str, 'types.StringFilter']
     price: Union[_int, 'types.BigIntFilter']
 
-    # should be noted that AND and NOT should be Union['ItemsWhereInputRecursive1', List['ItemsWhereInputRecursive1']]
+    # should be noted that AND and NOT should be Union['ItemWhereInputRecursive1', List['ItemWhereInputRecursive1']]
     # but this causes mypy to hang :/
-    AND: List['ItemsWhereInputRecursive1']
-    OR: List['ItemsWhereInputRecursive1']
-    NOT: List['ItemsWhereInputRecursive1']
+    AND: List['ItemWhereInputRecursive1']
+    OR: List['ItemWhereInputRecursive1']
+    NOT: List['ItemWhereInputRecursive1']
 
 
-class ItemsWhereInputRecursive1(TypedDict, total=False):
-    """Items arguments for searching"""
+class ItemWhereInputRecursive1(TypedDict, total=False):
+    """Item arguments for searching"""
     id: Union[_str, 'types.StringFilter']
     created_at: Union[None, datetime.datetime, 'types.DateTimeFilter']
     name: Union[_str, 'types.StringFilter']
     price: Union[_int, 'types.BigIntFilter']
 
-    # should be noted that AND and NOT should be Union['ItemsWhereInputRecursive2', List['ItemsWhereInputRecursive2']]
+    # should be noted that AND and NOT should be Union['ItemWhereInputRecursive2', List['ItemWhereInputRecursive2']]
     # but this causes mypy to hang :/
-    AND: List['ItemsWhereInputRecursive2']
-    OR: List['ItemsWhereInputRecursive2']
-    NOT: List['ItemsWhereInputRecursive2']
+    AND: List['ItemWhereInputRecursive2']
+    OR: List['ItemWhereInputRecursive2']
+    NOT: List['ItemWhereInputRecursive2']
 
 
-class ItemsWhereInputRecursive2(TypedDict, total=False):
-    """Items arguments for searching"""
+class ItemWhereInputRecursive2(TypedDict, total=False):
+    """Item arguments for searching"""
     id: Union[_str, 'types.StringFilter']
     created_at: Union[None, datetime.datetime, 'types.DateTimeFilter']
     name: Union[_str, 'types.StringFilter']
     price: Union[_int, 'types.BigIntFilter']
 
-    # should be noted that AND and NOT should be Union['ItemsWhereInputRecursive3', List['ItemsWhereInputRecursive3']]
+    # should be noted that AND and NOT should be Union['ItemWhereInputRecursive3', List['ItemWhereInputRecursive3']]
     # but this causes mypy to hang :/
-    AND: List['ItemsWhereInputRecursive3']
-    OR: List['ItemsWhereInputRecursive3']
-    NOT: List['ItemsWhereInputRecursive3']
+    AND: List['ItemWhereInputRecursive3']
+    OR: List['ItemWhereInputRecursive3']
+    NOT: List['ItemWhereInputRecursive3']
 
 
-class ItemsWhereInputRecursive3(TypedDict, total=False):
-    """Items arguments for searching"""
+class ItemWhereInputRecursive3(TypedDict, total=False):
+    """Item arguments for searching"""
     id: Union[_str, 'types.StringFilter']
     created_at: Union[None, datetime.datetime, 'types.DateTimeFilter']
     name: Union[_str, 'types.StringFilter']
     price: Union[_int, 'types.BigIntFilter']
 
-    # should be noted that AND and NOT should be Union['ItemsWhereInputRecursive4', List['ItemsWhereInputRecursive4']]
+    # should be noted that AND and NOT should be Union['ItemWhereInputRecursive4', List['ItemWhereInputRecursive4']]
     # but this causes mypy to hang :/
-    AND: List['ItemsWhereInputRecursive4']
-    OR: List['ItemsWhereInputRecursive4']
-    NOT: List['ItemsWhereInputRecursive4']
+    AND: List['ItemWhereInputRecursive4']
+    OR: List['ItemWhereInputRecursive4']
+    NOT: List['ItemWhereInputRecursive4']
 
 
-class ItemsWhereInputRecursive4(TypedDict, total=False):
-    """Items arguments for searching"""
+class ItemWhereInputRecursive4(TypedDict, total=False):
+    """Item arguments for searching"""
     id: Union[_str, 'types.StringFilter']
     created_at: Union[None, datetime.datetime, 'types.DateTimeFilter']
     name: Union[_str, 'types.StringFilter']
@@ -1491,61 +1491,61 @@ class ItemsWhereInputRecursive4(TypedDict, total=False):
 
 
 
-# aggregate Items types
+# aggregate Item types
 
 
     
 
-class ItemsScalarWhereWithAggregatesInput(TypedDict, total=False):
-    """Items arguments for searching"""
+class ItemScalarWhereWithAggregatesInput(TypedDict, total=False):
+    """Item arguments for searching"""
     id: Union[_str, 'types.StringWithAggregatesFilter']
     created_at: Union[datetime.datetime, 'types.DateTimeWithAggregatesFilter']
     name: Union[_str, 'types.StringWithAggregatesFilter']
     price: Union[_int, 'types.BigIntWithAggregatesFilter']
 
-    AND: List['ItemsScalarWhereWithAggregatesInputRecursive1']
-    OR: List['ItemsScalarWhereWithAggregatesInputRecursive1']
-    NOT: List['ItemsScalarWhereWithAggregatesInputRecursive1']
+    AND: List['ItemScalarWhereWithAggregatesInputRecursive1']
+    OR: List['ItemScalarWhereWithAggregatesInputRecursive1']
+    NOT: List['ItemScalarWhereWithAggregatesInputRecursive1']
 
 
-class ItemsScalarWhereWithAggregatesInputRecursive1(TypedDict, total=False):
-    """Items arguments for searching"""
+class ItemScalarWhereWithAggregatesInputRecursive1(TypedDict, total=False):
+    """Item arguments for searching"""
     id: Union[_str, 'types.StringWithAggregatesFilter']
     created_at: Union[datetime.datetime, 'types.DateTimeWithAggregatesFilter']
     name: Union[_str, 'types.StringWithAggregatesFilter']
     price: Union[_int, 'types.BigIntWithAggregatesFilter']
 
-    AND: List['ItemsScalarWhereWithAggregatesInputRecursive2']
-    OR: List['ItemsScalarWhereWithAggregatesInputRecursive2']
-    NOT: List['ItemsScalarWhereWithAggregatesInputRecursive2']
+    AND: List['ItemScalarWhereWithAggregatesInputRecursive2']
+    OR: List['ItemScalarWhereWithAggregatesInputRecursive2']
+    NOT: List['ItemScalarWhereWithAggregatesInputRecursive2']
 
 
-class ItemsScalarWhereWithAggregatesInputRecursive2(TypedDict, total=False):
-    """Items arguments for searching"""
+class ItemScalarWhereWithAggregatesInputRecursive2(TypedDict, total=False):
+    """Item arguments for searching"""
     id: Union[_str, 'types.StringWithAggregatesFilter']
     created_at: Union[datetime.datetime, 'types.DateTimeWithAggregatesFilter']
     name: Union[_str, 'types.StringWithAggregatesFilter']
     price: Union[_int, 'types.BigIntWithAggregatesFilter']
 
-    AND: List['ItemsScalarWhereWithAggregatesInputRecursive3']
-    OR: List['ItemsScalarWhereWithAggregatesInputRecursive3']
-    NOT: List['ItemsScalarWhereWithAggregatesInputRecursive3']
+    AND: List['ItemScalarWhereWithAggregatesInputRecursive3']
+    OR: List['ItemScalarWhereWithAggregatesInputRecursive3']
+    NOT: List['ItemScalarWhereWithAggregatesInputRecursive3']
 
 
-class ItemsScalarWhereWithAggregatesInputRecursive3(TypedDict, total=False):
-    """Items arguments for searching"""
+class ItemScalarWhereWithAggregatesInputRecursive3(TypedDict, total=False):
+    """Item arguments for searching"""
     id: Union[_str, 'types.StringWithAggregatesFilter']
     created_at: Union[datetime.datetime, 'types.DateTimeWithAggregatesFilter']
     name: Union[_str, 'types.StringWithAggregatesFilter']
     price: Union[_int, 'types.BigIntWithAggregatesFilter']
 
-    AND: List['ItemsScalarWhereWithAggregatesInputRecursive4']
-    OR: List['ItemsScalarWhereWithAggregatesInputRecursive4']
-    NOT: List['ItemsScalarWhereWithAggregatesInputRecursive4']
+    AND: List['ItemScalarWhereWithAggregatesInputRecursive4']
+    OR: List['ItemScalarWhereWithAggregatesInputRecursive4']
+    NOT: List['ItemScalarWhereWithAggregatesInputRecursive4']
 
 
-class ItemsScalarWhereWithAggregatesInputRecursive4(TypedDict, total=False):
-    """Items arguments for searching"""
+class ItemScalarWhereWithAggregatesInputRecursive4(TypedDict, total=False):
+    """Item arguments for searching"""
     id: Union[_str, 'types.StringWithAggregatesFilter']
     created_at: Union[datetime.datetime, 'types.DateTimeWithAggregatesFilter']
     name: Union[_str, 'types.StringWithAggregatesFilter']
@@ -1553,67 +1553,67 @@ class ItemsScalarWhereWithAggregatesInputRecursive4(TypedDict, total=False):
 
 
 
-class ItemsGroupByOutput(TypedDict, total=False):
+class ItemGroupByOutput(TypedDict, total=False):
     id: _str
     created_at: datetime.datetime
     name: _str
     price: _int
-    _sum: 'ItemsSumAggregateOutput'
-    _avg: 'ItemsAvgAggregateOutput'
-    _min: 'ItemsMinAggregateOutput'
-    _max: 'ItemsMaxAggregateOutput'
-    _count: 'ItemsCountAggregateOutput'
+    _sum: 'ItemSumAggregateOutput'
+    _avg: 'ItemAvgAggregateOutput'
+    _min: 'ItemMinAggregateOutput'
+    _max: 'ItemMaxAggregateOutput'
+    _count: 'ItemCountAggregateOutput'
 
 
-class ItemsAvgAggregateOutput(TypedDict, total=False):
-    """Items output for aggregating averages"""
+class ItemAvgAggregateOutput(TypedDict, total=False):
+    """Item output for aggregating averages"""
     price: float
 
 
-class ItemsSumAggregateOutput(TypedDict, total=False):
-    """Items output for aggregating sums"""
+class ItemSumAggregateOutput(TypedDict, total=False):
+    """Item output for aggregating sums"""
     price: _int
 
 
-class ItemsScalarAggregateOutput(TypedDict, total=False):
-    """Items output including scalar fields"""
+class ItemScalarAggregateOutput(TypedDict, total=False):
+    """Item output including scalar fields"""
     id: _str
     created_at: datetime.datetime
     name: _str
     price: _int
 
 
-ItemsMinAggregateOutput = ItemsScalarAggregateOutput
-ItemsMaxAggregateOutput = ItemsScalarAggregateOutput
+ItemMinAggregateOutput = ItemScalarAggregateOutput
+ItemMaxAggregateOutput = ItemScalarAggregateOutput
 
 
-class ItemsMaxAggregateInput(TypedDict, total=False):
-    """Items input for aggregating by max"""
+class ItemMaxAggregateInput(TypedDict, total=False):
+    """Item input for aggregating by max"""
     id: bool
     created_at: bool
     name: bool
     price: bool
 
 
-class ItemsMinAggregateInput(TypedDict, total=False):
-    """Items input for aggregating by min"""
+class ItemMinAggregateInput(TypedDict, total=False):
+    """Item input for aggregating by min"""
     id: bool
     created_at: bool
     name: bool
     price: bool
 
 
-class ItemsNumberAggregateInput(TypedDict, total=False):
-    """Items input for aggregating numbers"""
+class ItemNumberAggregateInput(TypedDict, total=False):
+    """Item input for aggregating numbers"""
     price: bool
 
 
-ItemsAvgAggregateInput = ItemsNumberAggregateInput
-ItemsSumAggregateInput = ItemsNumberAggregateInput
+ItemAvgAggregateInput = ItemNumberAggregateInput
+ItemSumAggregateInput = ItemNumberAggregateInput
 
 
-ItemsCountAggregateInput = TypedDict(
-    'ItemsCountAggregateInput',
+ItemCountAggregateInput = TypedDict(
+    'ItemCountAggregateInput',
     {
         'id': bool,
         'created_at': bool,
@@ -1624,8 +1624,8 @@ ItemsCountAggregateInput = TypedDict(
     total=False,
 )
 
-ItemsCountAggregateOutput = TypedDict(
-    'ItemsCountAggregateOutput',
+ItemCountAggregateOutput = TypedDict(
+    'ItemCountAggregateOutput',
     {
         'id': int,
         'created_at': int,
@@ -1637,21 +1637,21 @@ ItemsCountAggregateOutput = TypedDict(
 )
 
 
-ItemsKeys = Literal[
+ItemKeys = Literal[
     'id',
     'created_at',
     'name',
     'price',
 ]
-ItemsScalarFieldKeys = Literal[
+ItemScalarFieldKeys = Literal[
     'id',
     'created_at',
     'name',
     'price',
 ]
-ItemsScalarFieldKeysT = TypeVar('ItemsScalarFieldKeysT', bound=ItemsScalarFieldKeys)
+ItemScalarFieldKeysT = TypeVar('ItemScalarFieldKeysT', bound=ItemScalarFieldKeys)
 
-ItemsRelationalFieldKeys = _NoneType
+ItemRelationalFieldKeys = _NoneType
 
 
 
