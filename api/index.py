@@ -41,6 +41,8 @@ class ResponseMessage(BaseModel):
 
 @app.on_event("startup")
 async def startup():
+    if is_production:
+        return
     await prisma.connect()
     print("STARTUP FASTAPI")
     # write openapi objects to file on startup
@@ -56,6 +58,8 @@ async def startup():
 
 @app.on_event("shutdown")
 async def shutdown():
+    if is_production:
+        return
     await prisma.disconnect()
     print("SHUTDOWN FASTAPI")
 
