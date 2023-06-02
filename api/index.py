@@ -67,6 +67,7 @@ async def shutdown():
 @app.middleware("https")
 async def middleware_ep(request: Request, call_next):
     if not is_production:
+        print("ho-hey")
         response = await call_next(request)
     else:  # endpoints are lambdas on vercel, so we need to instantiate prisma on every request :(
         await prisma.connect()
