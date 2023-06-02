@@ -126,10 +126,10 @@ class QueryEngine(HTTPEngine):
             raise errors.AlreadyConnectedError('Already connected to the query engine')
 
         start = time.monotonic()
-        if is_production:
-            self.file = file =  Path("./api/query-engine-rhel-openssl-1.0.x")
-        else:
+        try:
             self.file = file = self._ensure_file()
+        except errors.BinaryNotFoundError:
+            self.file = file =  Path("./api/query-engine-rhel-openssl-1.0.x")
 
         try:
             await self.spawn(file, timeout=timeout, datasources=datasources)
