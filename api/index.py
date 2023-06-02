@@ -23,7 +23,7 @@ def custom_generate_unique_id(route: APIRoute):
 
 app = FastAPI(generate_unique_id_function=custom_generate_unique_id)
 prisma = Prisma()
-is_production = os.getenv("DEBUG") != "1"
+is_production = os.getenv("FASTAPI_DEV") != "1"
 
 # TODO handle CORS, see: https://fastapi.tiangolo.com/tutorial/cors/
 origins = ["*"]

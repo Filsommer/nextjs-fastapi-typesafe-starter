@@ -128,7 +128,7 @@ class QueryEngine(HTTPEngine):
         try:
             self.file = file = self._ensure_file()
         except errors.BinaryNotFoundError:  # engine not found, fallback to the one uploaded to git
-            self.file = file = Path("./api/prisma/query-engine-rhel-openssl-1.0.x")
+            self.file = file = Path("./api/query-engine-rhel-openssl-1.0.x")
 
         try:
             await self.spawn(file, timeout=timeout, datasources=datasources)
