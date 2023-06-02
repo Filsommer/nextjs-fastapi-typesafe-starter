@@ -126,10 +126,10 @@ class QueryEngine(HTTPEngine):
             raise errors.AlreadyConnectedError('Already connected to the query engine')
 
         start = time.monotonic()
-        try:
-            self.file = file = self._ensure_file()
-        except errors.BinaryNotFoundError:  # engine not found, fallback to the one uploaded to git
+        if is_production:
             self.file = file =  Path("./api/query-engine-rhel-openssl-1.0.x")
+        else:
+            self.file = file = self._ensure_file()
 
         try:
             await self.spawn(file, timeout=timeout, datasources=datasources)
