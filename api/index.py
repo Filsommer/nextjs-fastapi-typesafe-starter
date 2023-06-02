@@ -43,7 +43,10 @@ class ResponseMessage(BaseModel):
 async def startup():
     if is_production:
         return
-    await prisma.connect()
+    try:
+        await prisma.connect()
+    except PermissionError:
+        pass
     print("STARTUP FASTAPI")
     # write openapi objects to file on startup
     async with await FileWriteStream.from_path("./api/openapi.json") as stream:
