@@ -24,6 +24,7 @@ def custom_generate_unique_id(route: APIRoute):
 app = FastAPI(generate_unique_id_function=custom_generate_unique_id)
 prisma = Prisma()
 is_production = os.getenv("DEBUG") != "1"
+
 # TODO handle CORS, see: https://fastapi.tiangolo.com/tutorial/cors/
 origins = ["*"]
 app.add_middleware(
@@ -52,10 +53,12 @@ async def startup():
                 operation["operationId"] = new_operation_id
         await stream.send(json.dumps(jsonData).encode("utf-8"))
 
+
 @app.on_event("shutdown")
 async def shutdown():
     await prisma.disconnect()
     print("SHUTDOWN FASTAPI")
+
 
 @app.middleware("https")
 async def middleware_ep(request: Request, call_next):
