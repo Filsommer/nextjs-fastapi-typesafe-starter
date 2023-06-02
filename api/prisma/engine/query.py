@@ -117,7 +117,6 @@ class QueryEngine(HTTPEngine):
 
     async def connect(
         self,
-        is_production = False,
         timeout: int = 10,
         datasources: Optional[List[DatasourceOverride]] = None,
     ) -> None:
@@ -126,10 +125,10 @@ class QueryEngine(HTTPEngine):
             raise errors.AlreadyConnectedError('Already connected to the query engine')
 
         start = time.monotonic()
-        if is_production:
-            self.file = file =  Path("./api/query-engine-rhel-openssl-1.0.x")
-        else:
+        try:
             self.file = file = self._ensure_file()
+        except errors.BinaryNotFoundError:  # engine not found, fallback to the one uploaded to git
+            self.file = file = Path("./api/prisma/query-engine-rhel-openssl-1.0.x")
 
         try:
             await self.spawn(file, timeout=timeout, datasources=datasources)

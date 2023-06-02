@@ -214,7 +214,6 @@ class Prisma:
 
     async def connect(
         self,
-        is_production = False,
         timeout: Union[int, UseClientDefault] = _USE_CLIENT_DEFAULT,
     ) -> None:
         """Connect to the Prisma query engine.
@@ -234,7 +233,6 @@ class Prisma:
             datasources = [ds]
 
         await self.__engine.connect(
-            is_production=is_production,
             timeout=timeout,
             datasources=datasources,
         )

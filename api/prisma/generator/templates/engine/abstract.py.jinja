@@ -47,7 +47,6 @@ class AbstractEngine(ABC):
     @abstractmethod
     {{ maybe_async_def }}connect(
         self,
-        is_production = False,
         timeout: int = 10,
         datasources: Optional[List[DatasourceOverride]] = None,
     ) -> None:
