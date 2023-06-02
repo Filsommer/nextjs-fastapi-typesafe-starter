@@ -10,7 +10,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "mv ./api/query-engine-rhel-openssl-1.0.x ./api/prisma",
+    "postinstall": "mv ../tasks/api/query-engine-rhel-openssl-1.0.x ../tasks/api/prisma",
     "generate-client": "npx openapi --input ./api/openapi.json --output ./openAPI --client fetch --request ./service/request.ts"
   },
   "dependencies": {
